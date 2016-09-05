@@ -17,7 +17,7 @@ import ru.swg.wheelframework.view.DisplayObject;
 public class GuiImage extends DisplayObject {
 	private final String path;
 	
-	public GuiImage(String path) {
+	public GuiImage(final String path) {
 		this.path = path;
 		
 		try {

@@ -39,7 +39,7 @@ public class DisplayContainer extends DisplayObject {
 			return false;
 		}
 		
-		boolean res = children.remove(child);
+		final boolean res = children.remove(child);
 		child.setParent(null);
 		return res;
 	}

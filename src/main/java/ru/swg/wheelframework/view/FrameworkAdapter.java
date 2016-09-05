@@ -23,7 +23,7 @@ public class FrameworkAdapter extends Component implements Runnable {
 	// Current game board
 	private final DisplayObject board;
 	// Animation thread
-	private Thread animator = null;
+	private final Thread animator = new Thread(this);
 	
 	/**
 	 * Constructor
@@ -38,8 +38,6 @@ public class FrameworkAdapter extends Component implements Runnable {
 	@Override
 	public final void addNotify() {
 		super.addNotify();
-		
-    	animator = new Thread(this);
     	animator.start();
 	}
 	

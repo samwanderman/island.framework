@@ -37,7 +37,7 @@ public final class GuiEventListener implements Listener<GuiEvent> {
 		 * 
 		 */
 		if (target instanceof DisplayContainer) {
-			DisplayContainer _target = (DisplayContainer) target;
+			final DisplayContainer _target = (DisplayContainer) target;
 			for (final DisplayObject child: _target.getChildren()) {
 				final GuiEvent childEvent = new GuiEvent(child, event.getGraphics());
 				Events.dispatch(childEvent);
