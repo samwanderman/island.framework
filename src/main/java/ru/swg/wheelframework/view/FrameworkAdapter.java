@@ -66,7 +66,7 @@ public class FrameworkAdapter extends Component implements Runnable {
 			try {
 				Thread.sleep(sleep);
 			} catch (InterruptedException e) {
-				Log.error("ERROR: Thread.sleep() error");
+				Log.error("Thread.sleep() error");
 			}
 			
 			beforeTime = System.currentTimeMillis();

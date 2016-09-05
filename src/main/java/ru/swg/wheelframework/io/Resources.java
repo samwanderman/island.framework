@@ -3,12 +3,15 @@
  */
 package ru.swg.wheelframework.io;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
+
+import javax.imageio.ImageIO;
 
 import ru.swg.wheelframework.log.Log;
 
@@ -22,8 +25,9 @@ public final class Resources {
 	/**
 	 * Init module
 	 */
-	public static void init() throws FileNotFoundException, IOException {
-		Log.info("Resource loading...");
+	public static final void init() 
+			throws FileNotFoundException, IOException {
+		Log.info("esource loading...");
 		loadStrings();
 		Log.info("Strings loaded");
 	}
@@ -34,14 +38,14 @@ public final class Resources {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	private static void loadStrings() 
+	private static final void loadStrings() 
 			throws FileNotFoundException, IOException {
-		File file = new File("./resources/strings/strings_ru.properties");
+		final File file = new File("./resources/strings/strings_ru.properties");
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
 		
-		InputStreamReader is = new InputStreamReader(new FileInputStream(file), "UTF-8"); 
+		final InputStreamReader is = new InputStreamReader(new FileInputStream(file), "UTF-8"); 
 		strings.load(is);
 		is.close();
 	}
@@ -52,7 +56,19 @@ public final class Resources {
 	 * @param key
 	 * @return
 	 */
-	public static String getString(String key) {
+	public static final String getString(final String key) {
 		return strings.getProperty(key);
+	}
+	
+	/**
+	 * Load image from default storage
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static final Image loadImage(final String path) 
+			throws IOException {
+		return ImageIO.read(new File("./resources/images/" + path));
 	}
 }

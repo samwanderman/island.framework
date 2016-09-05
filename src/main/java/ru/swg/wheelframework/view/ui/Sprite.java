@@ -13,57 +13,15 @@ import ru.swg.wheelframework.view.DisplayObject;
  * Simple sprite
  */
 public final class Sprite extends DisplayObject {
-	// Element X
-	private int x = 0;
-	// Element Y
-	private int y = 0;
-	// Element height
-	private int height = 0;
-	// Element width
-	private int width = 0;
 	// Element color - FIXME
 	private Color color = Config.DEFAULT_BACKGROUND_COLOR;
 		
 	@Override
 	public final void paint(final Graphics2D graphics) {
+		super.paint(graphics);
 		graphics.setColor(color);
-		graphics.fillRect(x, y, x + width, y + height);
-	}
-	
-	/**
-	 * Set x coord
-	 * 
-	 * @param x
-	 */
-	public final void setX(final int x) {
-		this.x = x;
-	}
-	
-	/**
-	 * Set y coord
-	 * 
-	 * @param y
-	 */
-	public final void setY(final int y) {
-		this.y = y;
-	}
-	
-	/**
-	 * Set element width
-	 * 
-	 * @param width
-	 */
-	public final void setWidth(final int width) {
-		this.width = width;
-	}
-	
-	/**
-	 * Set element height
-	 * 
-	 * @param height
-	 */
-	public final void setHeight(final int height) {
-		this.height = height;
+		final int x = getParent().getX() + getX(), y = getParent().getY() + getY(); 
+		graphics.fillRect(x, y, x + getWidth(), y + getHeight());
 	}
 	
 	/**
