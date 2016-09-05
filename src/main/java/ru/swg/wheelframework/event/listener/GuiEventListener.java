@@ -9,20 +9,17 @@ import ru.swg.wheelframework.view.DisplayObject;
 /**
  * Gui event listener
  */
-public class GuiEventListener implements Listener<GuiEvent> {
-	private DisplayObject target = null;
+public final class GuiEventListener implements Listener<GuiEvent> {
+	private final DisplayObject target;
 	
-	public GuiEventListener(DisplayObject target) {
+	public GuiEventListener(final DisplayObject target) {
 		this.target = target;
 	}
-
-	/**
-	 * Handle event
-	 * 
-	 * @param event
-	 */
+	
 	@Override
-	public void notify(GuiEvent event) {
-		target.paint(event.getGraphics());
+	public void notify(final GuiEvent event) {
+		if (target == event.getTarget()) {
+			target.paint(event.getGraphics());
+		}
 	}
 }

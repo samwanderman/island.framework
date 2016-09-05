@@ -10,34 +10,18 @@ import ru.swg.wheelframework.event.event.GuiEvent;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
 
 /**
- * Base class for display object
+ * Main class to display object
  */
 public class DisplayObject {
-	// link to parent element
-	private DisplayContainer parent = null;
-	// Event listener
-	private GuiEventListener guiEventListener = new GuiEventListener(this);
+	private DisplayObject parent = null;
 	
-	/**
-	 * Override for component painting
-	 * 
-	 * @param graphics
-	 */
-	public void paint(Graphics2D graphics) {
-		// TODO
-	}
-
-	/**
-	 * Set parent element
-	 * 
-	 * @param parent
-	 */
-	protected void setParent(DisplayContainer parent) {
+	private final GuiEventListener guiEventListener = new GuiEventListener(this);
+	
+	public void paint(final Graphics2D graphics) { }
+	
+	public void setParent(final DisplayObject parent) {
 		this.parent = parent;
 		
-		/**
-		 * If element unattached - do not handle events
-		 */
 		if (parent != null) {
 			Events.addListener(GuiEvent.class, guiEventListener);
 		} else {

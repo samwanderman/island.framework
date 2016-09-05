@@ -5,27 +5,25 @@ package ru.swg.wheelframework.event.event;
 
 import java.awt.Graphics2D;
 
+import ru.swg.wheelframework.view.DisplayObject;
+
 /**
- * Basic GUI event
+ * Simple Gui event
  */
-public class GuiEvent implements Event {
+public final class GuiEvent implements Event {
 	private Graphics2D graphics;
+	private DisplayObject target;
 	
-	/**
-	 * Constructor
-	 * 
-	 * @param graphics
-	 */
-	public GuiEvent(Graphics2D graphics) {
+	public GuiEvent(final DisplayObject target, final Graphics2D graphics) {
+		this.target = target;
 		this.graphics = graphics;
 	}
 	
-	/**
-	 * Get graphics from event
-	 * 
-	 * @return
-	 */
 	public Graphics2D getGraphics() {
 		return graphics;
+	}
+	
+	public DisplayObject getTarget() {
+		return target;
 	}
 }

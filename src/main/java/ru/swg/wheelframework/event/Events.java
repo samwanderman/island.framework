@@ -12,52 +12,70 @@ import ru.swg.wheelframework.event.event.Event;
 import ru.swg.wheelframework.event.listener.Listener;
 
 /**
- * Events class
+ * Class for events manipulating
  */
-public class Events {
+public final class Events {
 	private static Map<Class<? extends Event>, List<Listener<? extends Event>>> listeners = new HashMap<>();
 	
 	/**
-	 * Add event listener
+	 * Add listener
 	 * 
 	 * @param eventType
 	 * @param listener
 	 * @return
 	 */
-	public static boolean addListener(Class<? extends Event> eventType, Listener<? extends Event> listener) {
+	public static boolean addListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
 		List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
+		
 		if (eventListeners == null) {
 			eventListeners = new ArrayList<>();
-		}
-		
-		if (eventListeners.contains(listener)) {
+		} else if (eventListeners.contains(listener)) {
 			return false;
 		}
 		
-		boolean res = eventListeners.add(listener);
+		eventListeners.add(listener);
 		listeners.put(eventType, eventListeners);
-		return res;
+		
+		return true;
 	}
 	
 	/**
-	 * Remove event listener
+	 * Remove listener
 	 * 
 	 * @param eventType
 	 * @param listener
 	 * @return
 	 */
-	public static boolean removeListener(Class<? extends Event> eventType, Listener<? extends Event> listener) {
+	public static boolean removeListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
 		List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
+		
 		if (eventListeners == null) {
 			return false;
-		}
-		
-		if (!eventListeners.contains(listener)) {
+		} else if (!eventListeners.contains(listener)) {
 			return false;
 		}
 		
-		boolean res = eventListeners.remove(listener);
+		eventListeners.remove(listener);
 		listeners.put(eventType, eventListeners);
-		return res;
+		
+		return true;
+	}
+
+	/**
+	 * dispatch event
+	 * 
+	 * @param event
+	 */
+	// FIXME - how to make it clear?
+	public static <T extends Event> void dispatch(final T event) {
+		List<Listener<? extends Event>> eventListeners = listeners.get(event.getClass());
+		
+		if (eventListeners == null) {
+			return;
+		}
+		
+		for (Listener listener: eventListeners) {
+			listener.notify(event);
+		}
 	}
 }

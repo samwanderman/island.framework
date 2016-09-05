@@ -6,8 +6,8 @@ package ru.swg.wheelframework.event.listener;
 import ru.swg.wheelframework.event.event.Event;
 
 /**
- * Listener
+ * Base listener interface
  */
-public interface Listener<T extends Event> { 
-	void notify(T event);
+public interface Listener<T extends Event> {
+	void notify(final T event);
 }

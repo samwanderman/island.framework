@@ -4,33 +4,28 @@
 package ru.swg.wheelframework.view;
 
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import ru.swg.wheelframework.core.Config;
+import ru.swg.wheelframework.event.Events;
+import ru.swg.wheelframework.event.event.GuiEvent;
 import ru.swg.wheelframework.log.Log;
 
 /**
- * Adapter between framework and jwm 
+ * Adapter to java view system
  */
 public class FrameworkAdapter extends Component implements Runnable {
 	private static final long serialVersionUID = -2752101691826758979L;
 	
-	/**
-	 * Main game board
-	 */
-	private DisplayObject board = null;
-	
-	/**
-	 * Animation thread
-	 */
+	private final DisplayContainer fakeContainer;
+	private final DisplayObject board;
 	private Thread animator = null;
 	
-	/**
-	 * Default constructor
-	 * 
-	 * @param board
-	 */
-	public FrameworkAdapter(DisplayObject board) {
+	public FrameworkAdapter(final DisplayObject board) {
+		fakeContainer = new DisplayContainer();
 		this.board = board;
+		fakeContainer.addChild(board);
 	}
 	
 	@Override
@@ -42,17 +37,20 @@ public class FrameworkAdapter extends Component implements Runnable {
 	}
 	
 	@Override
+	public void paint(final Graphics graphics) {
+		super.paint(graphics);
+		GuiEvent event = new GuiEvent(board, (Graphics2D) graphics);
+		Events.dispatch(event);
+	}
+	
+	@Override
     public void run() {
 		long beforeTime = System.currentTimeMillis(), timeDiff, sleep;
 		
 		while (true) {
 			repaint();
 			
-			// how many time have passed
 			timeDiff = System.currentTimeMillis() - beforeTime;
-			/**
-			 * how long thread should sleep, if paint was too fast - wait longer
-			 */
 			sleep = Config.CONST_ANIM_THREAD_TIME_DELAY - timeDiff;
 			if (sleep < 0) {
 				sleep = 2;

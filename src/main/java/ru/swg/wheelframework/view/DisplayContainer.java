@@ -7,42 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base class for display container which can contain another displayable objects
+ * Main class to display container
  */
 public class DisplayContainer extends DisplayObject {
-	private List<DisplayObject> children = new ArrayList<>();
+	private final List<DisplayObject> children = new ArrayList<>();
 	
-	/**
-	 * Add new child
-	 * 
-	 * @param child
-	 * @return
-	 */
-	public boolean addChild(DisplayObject child) {
-		// If child already exists
+	public final boolean addChild(final DisplayObject child) {
 		if (children.contains(child)) {
 			return false;
 		}
 		
-		boolean res = children.add(child);
-		if (res) {
-			child.setParent(this);
-		}
-		return res;
+		child.setParent(this);
+		return children.add(child);
 	}
 	
-	/**
-	 * Remove child
-	 * 
-	 * @param child
-	 * @return
-	 */
-	public boolean removeChild(DisplayObject child) {
+	public final boolean removeChild(final DisplayObject child) {
 		if (!children.contains(child)) {
 			return false;
 		}
 		
+		boolean res = children.remove(child);
 		child.setParent(null);
-		return children.remove(child);
+		return res;
 	}
 }

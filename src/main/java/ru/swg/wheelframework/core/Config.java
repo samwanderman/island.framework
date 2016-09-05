@@ -3,9 +3,12 @@
  */
 package ru.swg.wheelframework.core;
 
+import java.awt.Color;
+
 /**
- * Different config values
+ * Framework configuration
  */
-public class Config {
-	public static int CONST_ANIM_THREAD_TIME_DELAY = 5;
+public final class Config {
+	public static final int CONST_ANIM_THREAD_TIME_DELAY = 5;
+	public static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 }
