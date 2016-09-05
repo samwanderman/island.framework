@@ -3,7 +3,9 @@
  */
 package ru.swg.wheelframework.event.listener;
 
+import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.view.DisplayContainer;
 import ru.swg.wheelframework.view.DisplayObject;
 
 /**
@@ -24,8 +26,22 @@ public final class GuiEventListener implements Listener<GuiEvent> {
 	
 	@Override
 	public final void notify(final GuiEvent event) {
-		if (target == event.getTarget()) {
-			target.paint(event.getGraphics());
+		if (target != event.getTarget()) {
+			return;
+		}
+		
+		target.paint(event.getGraphics());
+		
+		/**
+		 * If object is container - send events to all children
+		 * 
+		 */
+		if (target instanceof DisplayContainer) {
+			DisplayContainer _target = (DisplayContainer) target;
+			for (final DisplayObject child: _target.getChildren()) {
+				final GuiEvent childEvent = new GuiEvent(child, event.getGraphics());
+				Events.dispatch(childEvent);
+			}
 		}
 	}
 }

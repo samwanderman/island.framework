@@ -19,7 +19,7 @@ public class DisplayContainer extends DisplayObject {
 	 * @param child
 	 * @return
 	 */
-	protected final boolean addChild(final DisplayObject child) {
+	public final boolean addChild(final DisplayObject child) {
 		if (children.contains(child)) {
 			return false;
 		}
@@ -34,7 +34,7 @@ public class DisplayContainer extends DisplayObject {
 	 * @param child
 	 * @return
 	 */
-	protected final boolean removeChild(final DisplayObject child) {
+	public final boolean removeChild(final DisplayObject child) {
 		if (!children.contains(child)) {
 			return false;
 		}
@@ -42,5 +42,14 @@ public class DisplayContainer extends DisplayObject {
 		boolean res = children.remove(child);
 		child.setParent(null);
 		return res;
+	}
+	
+	/**
+	 * Get children
+	 * 
+	 * @return
+	 */
+	public final List<DisplayObject> getChildren() {
+		return children;
 	}
 }

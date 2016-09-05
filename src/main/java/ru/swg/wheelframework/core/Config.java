@@ -10,7 +10,7 @@ import java.awt.Color;
  */
 public final class Config {
 	// Default animation thread delay
-	public static final int DEFAULT_ANIMATION_THREAD_DELAY = 5;
+	public static final int DEFAULT_ANIMATION_THREAD_DELAY = 500;
 	// Default background color
-	public static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
+	public static final Color DEFAULT_BACKGROUND_COLOR = Color.GRAY;
 }
