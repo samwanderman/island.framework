@@ -13,13 +13,24 @@ import ru.swg.wheelframework.event.listener.GuiEventListener;
  * Main class to display object
  */
 public class DisplayObject {
+	// Parent
 	private DisplayObject parent = null;
-	
+	// Default GuiEventListener
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
 	
+	/**
+	 * Override this to paint element
+	 * 
+	 * @param graphics
+	 */
 	public void paint(final Graphics2D graphics) { }
 	
-	public void setParent(final DisplayObject parent) {
+	/**
+	 * Set parent of this child
+	 * 
+	 * @param parent
+	 */
+	protected final void setParent(final DisplayObject parent) {
 		this.parent = parent;
 		
 		if (parent != null) {

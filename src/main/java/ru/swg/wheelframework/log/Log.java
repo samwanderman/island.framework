@@ -7,16 +7,29 @@ package ru.swg.wheelframework.log;
  * Simple Logger class
  */
 public final class Log {
+	// No logging
 	public static final int NONE = 0;
+	// show info messages
 	public static final int INFO = 1;
+	// show debug messages and info
 	public static final int DEBUG = 2;
+	// show warnings, debug and info
 	public static final int WARN = 3;
+	// show errors, warnings, debug and info
 	public static final int ERROR = 4;
+	// show all messages
 	public static final int ALL = 5;
 	
+	// Current log level
 	private static int level = ALL;
 	
-	private static String levelToString(final int level) {
+	/**
+	 * Level id to string
+	 * 
+	 * @param level
+	 * @return
+	 */
+	private static final String levelToString(final int level) {
 		switch (level) {
 		case INFO:
 			return "INFO";
@@ -33,25 +46,51 @@ public final class Log {
 		}
 	}
 	
-	public static void setLevel(final int level) {
+	/**
+	 * Set log level
+	 * 
+	 * @param level
+	 */
+	public static final void setLevel(final int level) {
 		Log.level = level;
 	}
 	
-	private static void log(final int level, final String message) {
+	/**
+	 * Inner log function
+	 * 
+	 * @param level
+	 * @param message
+	 */
+	private static final void log(final int level, final String message) {
 		if (level <= Log.level) {
 			System.out.println(levelToString(level) + ": " + message);
 		}
 	}
 	
-	public static void info(final String message) {
+	/**
+	 * Print info
+	 * 
+	 * @param message
+	 */
+	public static final void info(final String message) {
 		log(INFO, message);
 	}
 
-	public static void debug(final String message) {
+	/**
+	 * Print debug
+	 * 
+	 * @param message
+	 */
+	public static final void debug(final String message) {
 		log(DEBUG, message);
 	}
 	
-	public static void error(final String message) {
+	/**
+	 * Print error
+	 * 
+	 * @param message
+	 */
+	public static final void error(final String message) {
 		log(ERROR, message);
 	}
 }

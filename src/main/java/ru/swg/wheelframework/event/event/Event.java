@@ -6,6 +6,4 @@ package ru.swg.wheelframework.event.event;
 /**
  * Base event interface
  */
-public interface Event {
-
-}
+public interface Event { }

@@ -11,19 +11,37 @@ import ru.swg.wheelframework.view.DisplayObject;
  * Simple Gui event
  */
 public final class GuiEvent implements Event {
-	private Graphics2D graphics;
-	private DisplayObject target;
+	// Graphics object
+	private final Graphics2D graphics;
+	// Event target
+	private final DisplayObject target;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param target
+	 * @param graphics
+	 */
 	public GuiEvent(final DisplayObject target, final Graphics2D graphics) {
 		this.target = target;
 		this.graphics = graphics;
 	}
 	
-	public Graphics2D getGraphics() {
+	/**
+	 * Get grpahics object
+	 * 
+	 * @return
+	 */
+	public final Graphics2D getGraphics() {
 		return graphics;
 	}
 	
-	public DisplayObject getTarget() {
+	/**
+	 * Get event target
+	 * 
+	 * @return
+	 */
+	public final DisplayObject getTarget() {
 		return target;
 	}
 }

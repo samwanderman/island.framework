@@ -10,9 +10,16 @@ import java.util.List;
  * Main class to display container
  */
 public class DisplayContainer extends DisplayObject {
+	// Children array
 	private final List<DisplayObject> children = new ArrayList<>();
 	
-	public final boolean addChild(final DisplayObject child) {
+	/**
+	 * Add child to parent
+	 * 
+	 * @param child
+	 * @return
+	 */
+	protected final boolean addChild(final DisplayObject child) {
 		if (children.contains(child)) {
 			return false;
 		}
@@ -21,7 +28,13 @@ public class DisplayContainer extends DisplayObject {
 		return children.add(child);
 	}
 	
-	public final boolean removeChild(final DisplayObject child) {
+	/**
+	 * Remove child from parent
+	 * 
+	 * @param child
+	 * @return
+	 */
+	protected final boolean removeChild(final DisplayObject child) {
 		if (!children.contains(child)) {
 			return false;
 		}

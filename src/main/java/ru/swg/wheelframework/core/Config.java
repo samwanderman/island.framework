@@ -9,6 +9,8 @@ import java.awt.Color;
  * Framework configuration
  */
 public final class Config {
-	public static final int CONST_ANIM_THREAD_TIME_DELAY = 5;
+	// Default animation thread delay
+	public static final int DEFAULT_ANIMATION_THREAD_DELAY = 5;
+	// Default background color
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.BLACK;
 }

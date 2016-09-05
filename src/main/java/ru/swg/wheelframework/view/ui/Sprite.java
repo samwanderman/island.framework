@@ -12,32 +12,20 @@ import ru.swg.wheelframework.view.DisplayObject;
 /**
  * Simple sprite
  */
-public class Sprite extends DisplayObject {
+public final class Sprite extends DisplayObject {
 	// Element X
-	private int x;
+	private int x = 0;
 	// Element Y
-	private int y;
+	private int y = 0;
 	// Element height
-	private int height;
+	private int height = 0;
 	// Element width
-	private int width;
+	private int width = 0;
 	// Element color - FIXME
-	private Color color;
-	
-	/**
-	 * Constructor
-	 */
-	public Sprite() {
-		super();
-		x = 0;
-		y = 0;
-		height = 0;
-		width = 0;
-		color = Config.DEFAULT_BACKGROUND_COLOR;
-	}
-	
+	private Color color = Config.DEFAULT_BACKGROUND_COLOR;
+		
 	@Override
-	public void paint(final Graphics2D graphics) {
+	public final void paint(final Graphics2D graphics) {
 		graphics.setColor(color);
 		graphics.fillRect(x, y, x + width, y + height);
 	}
@@ -47,7 +35,7 @@ public class Sprite extends DisplayObject {
 	 * 
 	 * @param x
 	 */
-	public void setX(final int x) {
+	public final void setX(final int x) {
 		this.x = x;
 	}
 	
@@ -56,7 +44,7 @@ public class Sprite extends DisplayObject {
 	 * 
 	 * @param y
 	 */
-	public void setY(final int y) {
+	public final void setY(final int y) {
 		this.y = y;
 	}
 	
@@ -65,7 +53,7 @@ public class Sprite extends DisplayObject {
 	 * 
 	 * @param width
 	 */
-	public void setWidth(final int width) {
+	public final void setWidth(final int width) {
 		this.width = width;
 	}
 	
@@ -74,7 +62,7 @@ public class Sprite extends DisplayObject {
 	 * 
 	 * @param height
 	 */
-	public void setHeight(final int height) {
+	public final void setHeight(final int height) {
 		this.height = height;
 	}
 	
@@ -83,7 +71,7 @@ public class Sprite extends DisplayObject {
 	 * 
 	 * @param color
 	 */
-	public void setColor(final Color color) {
+	public final void setColor(final Color color) {
 		this.color = color;
 	}
 }

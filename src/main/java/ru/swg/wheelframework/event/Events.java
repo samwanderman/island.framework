@@ -15,7 +15,7 @@ import ru.swg.wheelframework.event.listener.Listener;
  * Class for events manipulating
  */
 public final class Events {
-	private static Map<Class<? extends Event>, List<Listener<? extends Event>>> listeners = new HashMap<>();
+	private static final Map<Class<? extends Event>, List<Listener<? extends Event>>> listeners = new HashMap<>();
 	
 	/**
 	 * Add listener
@@ -24,7 +24,7 @@ public final class Events {
 	 * @param listener
 	 * @return
 	 */
-	public static boolean addListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
+	public static final boolean addListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
 		List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
 		
 		if (eventListeners == null) {
@@ -46,8 +46,8 @@ public final class Events {
 	 * @param listener
 	 * @return
 	 */
-	public static boolean removeListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
-		List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
+	public static final boolean removeListener(final Class<? extends Event> eventType, final Listener<? extends Event> listener) {
+		final List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
 		
 		if (eventListeners == null) {
 			return false;
@@ -67,14 +67,14 @@ public final class Events {
 	 * @param event
 	 */
 	// FIXME - how to make it clear?
-	public static <T extends Event> void dispatch(final T event) {
-		List<Listener<? extends Event>> eventListeners = listeners.get(event.getClass());
+	public static final <T extends Event> void dispatch(final T event) {
+		final List<Listener<? extends Event>> eventListeners = listeners.get(event.getClass());
 		
 		if (eventListeners == null) {
 			return;
 		}
 		
-		for (Listener listener: eventListeners) {
+		for (final Listener listener: eventListeners) {
 			listener.notify(event);
 		}
 	}

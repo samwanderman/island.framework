@@ -18,18 +18,25 @@ import ru.swg.wheelframework.log.Log;
 public class FrameworkAdapter extends Component implements Runnable {
 	private static final long serialVersionUID = -2752101691826758979L;
 	
-	private final DisplayContainer fakeContainer;
+	// Fake container for proper event dispatching
+	private final DisplayContainer fakeContainer = new DisplayContainer();
+	// Current game board
 	private final DisplayObject board;
+	// Animation thread
 	private Thread animator = null;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param board
+	 */
 	public FrameworkAdapter(final DisplayObject board) {
-		fakeContainer = new DisplayContainer();
 		this.board = board;
 		fakeContainer.addChild(board);
 	}
 	
 	@Override
-	public void addNotify() {
+	public final void addNotify() {
 		super.addNotify();
 		
     	animator = new Thread(this);
@@ -37,21 +44,21 @@ public class FrameworkAdapter extends Component implements Runnable {
 	}
 	
 	@Override
-	public void paint(final Graphics graphics) {
+	public final void paint(final Graphics graphics) {
 		super.paint(graphics);
-		GuiEvent event = new GuiEvent(board, (Graphics2D) graphics);
+		final GuiEvent event = new GuiEvent(board, (Graphics2D) graphics);
 		Events.dispatch(event);
 	}
 	
 	@Override
-    public void run() {
+    public final void run() {
 		long beforeTime = System.currentTimeMillis(), timeDiff, sleep;
 		
 		while (true) {
 			repaint();
 			
 			timeDiff = System.currentTimeMillis() - beforeTime;
-			sleep = Config.CONST_ANIM_THREAD_TIME_DELAY - timeDiff;
+			sleep = Config.DEFAULT_ANIMATION_THREAD_DELAY - timeDiff;
 			if (sleep < 0) {
 				sleep = 2;
 			}
