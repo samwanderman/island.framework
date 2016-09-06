@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ru.swg.wheelframework.log.Log;
@@ -28,6 +29,7 @@ public final class Resources {
 	private static final String CONST_RESOURCES = "./resources/";
 	// String properties
 	private static final Properties strings = new Properties();
+	// JSON mapper
 	private static final ObjectMapper mapper;
 	
 	// Static initializer
@@ -45,7 +47,7 @@ public final class Resources {
 	 */
 	public static final void init() 
 			throws FileNotFoundException, IOException {
-		Log.info("esource loading...");
+		Log.info("Resources loading...");
 		loadStrings();
 		Log.info("Strings loaded");
 	}
@@ -101,5 +103,17 @@ public final class Resources {
 	public static <T> T loadObject(final String path, final Class<T> objectClass) 
 			throws IOException {
 		return mapper.readValue(new File(CONST_RESOURCES + path), objectClass);
+	}
+	
+	/**
+	 * Load raw json
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static JsonNode loadJSON(final String path) 
+			throws IOException {
+		return mapper.readTree(new File(CONST_RESOURCES + path));
 	}
 }

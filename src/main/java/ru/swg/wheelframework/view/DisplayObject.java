@@ -27,41 +27,59 @@ public class DisplayObject {
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
 	
 	/**
-	 * Get x coord
+	 * Get x
 	 */
 	public final int getX() {
 		return x;
 	}
 	
 	/**
-	 * Set x coord
+	 * Set x
 	 * 
 	 * @param x
 	 */
-	public final void setX(final int x) {
+	protected final void setX(final int x) {
 		this.x = x;
 	}
 
 	/**
-	 * Get y coord
+	 * Get absolute x
+	 * 
+	 * @return
+	 */
+	protected final int getAbsoluteX() {
+		return x + (parent == null ? 0 : parent.getAbsoluteX());
+	}
+
+	/**
+	 * Get y
 	 */
 	public final int getY() {
 		return y;
 	}
 
 	/**
-	 * Set y coord
+	 * Set y
 	 * 
 	 * @param y
 	 */
-	public final void setY(final int y) {
+	protected final void setY(final int y) {
 		this.y = y;
 	}
 
 	/**
+	 * Get absolute x
+	 * 
+	 * @return
+	 */
+	protected final int getAbsoluteY() {
+		return y + (parent == null ? 0 : parent.getAbsoluteY());
+	}
+	
+	/**
 	 * Get element width
 	 */
-	public final int getWidth() {
+	protected final int getWidth() {
 		return width;
 	}
 	
@@ -70,14 +88,14 @@ public class DisplayObject {
 	 * 
 	 * @param width
 	 */
-	public final void setWidth(final int width) {
+	protected final void setWidth(final int width) {
 		this.width = width;
 	}
 	
 	/**
 	 * Get element height
 	 */
-	public final int getHeight() {
+	protected final int getHeight() {
 		return height;
 	}
 	
@@ -86,7 +104,7 @@ public class DisplayObject {
 	 * 
 	 * @param height
 	 */
-	public final void setHeight(final int height) {
+	protected final void setHeight(final int height) {
 		this.height = height;
 	}
 	
@@ -111,7 +129,7 @@ public class DisplayObject {
 	 * 
 	 * @param parent
 	 */
-	protected final void setParent(final DisplayObject parent) {
+	public final void setParent(final DisplayObject parent) {
 		this.parent = parent;
 		
 		if (parent != null) {

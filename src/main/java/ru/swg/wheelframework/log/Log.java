@@ -51,7 +51,7 @@ public final class Log {
 	 * 
 	 * @param level
 	 */
-	public static final void setLevel(final int level) {
+	protected static final void setLevel(final int level) {
 		Log.level = level;
 	}
 	

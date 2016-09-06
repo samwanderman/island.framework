@@ -20,7 +20,7 @@ public final class Sprite extends DisplayObject {
 	public final void paint(final Graphics2D graphics) {
 		super.paint(graphics);
 		graphics.setColor(color);
-		graphics.fillRect(getParent().getX() + getX(), getParent().getY() + getY(), getWidth(), getHeight());
+		graphics.fillRect(getAbsoluteX(), getAbsoluteY(), getWidth(), getHeight());
 	}
 	
 	/**
