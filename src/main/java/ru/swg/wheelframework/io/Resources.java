@@ -13,14 +13,32 @@ import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import ru.swg.wheelframework.log.Log;
 
 /**
  * Class for resources manipulating
  */
 public final class Resources {
+	// Default resources folder
+	private static final String CONST_RESOURCES = "./resources/";
 	// String properties
-	private final static Properties strings = new Properties();
+	private static final Properties strings = new Properties();
+	private static final ObjectMapper mapper;
+	
+	// Static initializer
+	static {
+		// Mapper initialization and configuration
+		mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+	}
 	
 	/**
 	 * Init module
@@ -40,7 +58,7 @@ public final class Resources {
 	 */
 	private static final void loadStrings() 
 			throws FileNotFoundException, IOException {
-		final File file = new File("./resources/strings/strings_ru.properties");
+		final File file = new File(CONST_RESOURCES + "/strings/strings_ru.properties");
 		if (!file.exists()) {
 			throw new FileNotFoundException();
 		}
@@ -69,6 +87,19 @@ public final class Resources {
 	 */
 	public static final Image loadImage(final String path) 
 			throws IOException {
-		return ImageIO.read(new File("./resources/images/" + path));
+		return ImageIO.read(new File(CONST_RESOURCES + "/images/" + path));
+	}
+	
+	/**
+	 * Load any json object
+	 * 
+	 * @param path
+	 * @param objectClass
+	 * @return
+	 * @throws IOException
+	 */
+	public static <T> T loadObject(final String path, final Class<T> objectClass) 
+			throws IOException {
+		return mapper.readValue(new File(CONST_RESOURCES + path), objectClass);
 	}
 }
