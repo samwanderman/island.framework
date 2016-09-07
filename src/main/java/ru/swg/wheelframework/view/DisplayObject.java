@@ -4,15 +4,18 @@
 package ru.swg.wheelframework.view;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.event.MouseEvent;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
+import ru.swg.wheelframework.event.listener.MouseEventListener;
 
 /**
  * Main class to display object
  */
-public class DisplayObject {
+public class DisplayObject implements GuiEventInterface, MouseEventInterface {
 	// Element X
 	private int x = 0;
 	// Element Y
@@ -23,8 +26,23 @@ public class DisplayObject {
 	private int width = 0;
 	// Parent
 	private DisplayObject parent = null;
+	
 	// Default GuiEventListener
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
+	// Default GuiEventListener
+	private final MouseEventListener mouseEventListener = new MouseEventListener(this);
+
+	@Override
+	public void paint(final Graphics2D graphics) { }
+	
+	@Override
+	public void mouseClick(MouseEvent event) { }
+
+	@Override
+	public void mousePressed(MouseEvent event) { }
+
+	@Override
+	public void mouseReleased(MouseEvent event) { }
 	
 	/**
 	 * Get x
@@ -47,7 +65,7 @@ public class DisplayObject {
 	 * 
 	 * @return
 	 */
-	protected final int getAbsoluteX() {
+	public final int getAbsoluteX() {
 		return x + (parent == null ? 0 : parent.getAbsoluteX());
 	}
 
@@ -72,14 +90,14 @@ public class DisplayObject {
 	 * 
 	 * @return
 	 */
-	protected final int getAbsoluteY() {
+	public final int getAbsoluteY() {
 		return y + (parent == null ? 0 : parent.getAbsoluteY());
 	}
 	
 	/**
 	 * Get element width
 	 */
-	protected final int getWidth() {
+	public final int getWidth() {
 		return width;
 	}
 	
@@ -88,14 +106,14 @@ public class DisplayObject {
 	 * 
 	 * @param width
 	 */
-	protected final void setWidth(final int width) {
+	public final void setWidth(final int width) {
 		this.width = width;
 	}
 	
 	/**
 	 * Get element height
 	 */
-	protected final int getHeight() {
+	public final int getHeight() {
 		return height;
 	}
 	
@@ -104,16 +122,9 @@ public class DisplayObject {
 	 * 
 	 * @param height
 	 */
-	protected final void setHeight(final int height) {
+	public final void setHeight(final int height) {
 		this.height = height;
 	}
-	
-	/**
-	 * Override this to paint element
-	 * 
-	 * @param graphics
-	 */
-	public void paint(final Graphics2D graphics) { }
 	
 	/**
 	 * Get parent
@@ -129,13 +140,24 @@ public class DisplayObject {
 	 * 
 	 * @param parent
 	 */
-	public final void setParent(final DisplayObject parent) {
-		this.parent = parent;
+	protected void setParent(final DisplayObject parent) {
+		this.parent = parent;		
 		
 		if (parent != null) {
 			Events.addListener(GuiEvent.class, guiEventListener);
+			Events.addListener(MouseEvent.class, mouseEventListener);
 		} else {
 			Events.removeListener(GuiEvent.class, guiEventListener);
+			Events.removeListener(MouseEvent.class, mouseEventListener);
 		}
+	}
+	
+	/**
+	 * Get absolute bound rect
+	 * 
+	 * @return
+	 */
+	public final Rectangle getBoundRect() {
+		return new Rectangle(getAbsoluteX(), getAbsoluteY(), width, height);
 	}
 }

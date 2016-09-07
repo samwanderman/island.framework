@@ -32,6 +32,6 @@ public final class Scene extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setFocusable(true);
-		frame.setVisible(true);
+		frame.setVisible(true);		
     }
 }

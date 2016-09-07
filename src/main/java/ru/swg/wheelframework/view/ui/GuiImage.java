@@ -4,6 +4,7 @@
 package ru.swg.wheelframework.view.ui;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.IOException;
 
 import ru.swg.wheelframework.io.ImageCache;
@@ -25,12 +26,19 @@ public class GuiImage extends DisplayObject {
 	public GuiImage(final String path) 
 			throws IOException {
 		this.path = path;
-		ImageCache.set(path, Resources.loadImage(path));
+		final Image image = Resources.loadImage(path);
+		ImageCache.set(path, image);
+		setWidth(image.getWidth(null));
+		setHeight(image.getHeight(null));
 	}
-	
+
 	@Override
-	public final void paint(final Graphics2D graphics) {
-		super.paint(graphics);
+	public void setParent(final DisplayObject parent) {
+		super.setParent(parent);
+	}
+
+	@Override
+	public void paint(final Graphics2D graphics) {
 		graphics.drawImage(ImageCache.get(path), getAbsoluteX(), getAbsoluteY(), null);
 	}
 }

@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.io.MouseAdapter;
 import ru.swg.wheelframework.log.Log;
 
 /**
@@ -33,6 +34,12 @@ public class FrameworkAdapter extends Component implements Runnable {
 	public FrameworkAdapter(final DisplayObject board) {
 		this.board = board;
 		fakeContainer.addChild(board);
+		
+		// mouse events listener
+		final MouseAdapter mouseAdapter = new MouseAdapter(board);
+		this.addMouseListener(mouseAdapter);
+		this.addMouseMotionListener(mouseAdapter);
+		this.addMouseWheelListener(mouseAdapter);
 	}
 	
 	@Override
