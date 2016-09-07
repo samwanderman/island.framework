@@ -14,14 +14,14 @@ import ru.swg.wheelframework.view.MouseEventInterface;
  */
 public class MouseEventListener implements Listener<MouseEvent> {
 	// Target
-	private final DisplayObject target;
+	private final MouseEventInterface target;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param target
 	 */
-	public MouseEventListener(final DisplayObject target) {
+	public MouseEventListener(final MouseEventInterface target) {
 		this.target = target;
 	}
 	
@@ -31,19 +31,16 @@ public class MouseEventListener implements Listener<MouseEvent> {
 			return;
 		}
 		
-		if (target instanceof MouseEventInterface) {
-			final MouseEventInterface _target = (MouseEventInterface) target;
-			switch (event.getStatus()) {
-			case MouseEvent.CLICKED:
-				_target.mouseClick(event);
-				break;
-			case MouseEvent.PRESSED:
-				_target.mousePressed(event);
-				break;
-			case MouseEvent.RELEASED:
-				_target.mouseReleased(event);
-				break;
-			}
+		switch (event.getStatus()) {
+		case MouseEvent.CLICKED:
+			target.mouseClick(event);
+			break;
+		case MouseEvent.PRESSED:
+			target.mousePressed(event);
+			break;
+		case MouseEvent.RELEASED:
+			target.mouseReleased(event);
+			break;
 		}
 		
 		// If object is container - send events to all children

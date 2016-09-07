@@ -14,14 +14,14 @@ import ru.swg.wheelframework.view.GuiEventInterface;
  */
 public final class GuiEventListener implements Listener<GuiEvent> {
 	// Target
-	private final DisplayObject target;
+	private final GuiEventInterface target;
 	
 	/**
 	 * Default constructor
 	 * 
 	 * @param target
 	 */
-	public GuiEventListener(final DisplayObject target) {
+	public GuiEventListener(final GuiEventInterface target) {
 		this.target = target;
 	}
 	
@@ -32,11 +32,7 @@ public final class GuiEventListener implements Listener<GuiEvent> {
 			return;
 		}
 
-		// If gui event can be handled 
-		if (target instanceof GuiEventInterface) {
-			final GuiEventInterface _target = (GuiEventInterface) target;
-			_target.paint(event.getGraphics());
-		}
+		target.paint(event.getGraphics());
 		
 		// If object is container - send events to all children
 		if (target instanceof DisplayContainerInterface) {

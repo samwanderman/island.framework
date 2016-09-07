@@ -8,6 +8,9 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import ru.swg.wheelframework.io.KeyAdapter;
+import ru.swg.wheelframework.io.MouseAdapter;
+
 /**
  * Game Scene
  */
@@ -32,6 +35,15 @@ public final class Scene extends JFrame {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setFocusable(true);
-		frame.setVisible(true);		
+		frame.setVisible(true);
+		
+		// mouse events listener
+		final MouseAdapter mouseAdapter = new MouseAdapter(gameBoard);
+		frame.addMouseListener(mouseAdapter);
+		frame.addMouseMotionListener(mouseAdapter);
+		frame.addMouseWheelListener(mouseAdapter);
+
+		// keyboard events listener
+		frame.addKeyListener(new KeyAdapter());
     }
 }

@@ -8,14 +8,16 @@ import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.event.KeyEvent;
 import ru.swg.wheelframework.event.event.MouseEvent;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
+import ru.swg.wheelframework.event.listener.KeyEventListener;
 import ru.swg.wheelframework.event.listener.MouseEventListener;
 
 /**
  * Main class to display object
  */
-public class DisplayObject implements GuiEventInterface, MouseEventInterface {
+public class DisplayObject implements GuiEventInterface, MouseEventInterface, KeyEventInterface {
 	// Element X
 	private int x = 0;
 	// Element Y
@@ -31,19 +33,9 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface {
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
 	// Default GuiEventListener
 	private final MouseEventListener mouseEventListener = new MouseEventListener(this);
+	// Default GuiEventListener
+	private final KeyEventListener keyEventListener = new KeyEventListener(this);
 
-	@Override
-	public void paint(final Graphics2D graphics) { }
-	
-	@Override
-	public void mouseClick(MouseEvent event) { }
-
-	@Override
-	public void mousePressed(MouseEvent event) { }
-
-	@Override
-	public void mouseReleased(MouseEvent event) { }
-	
 	/**
 	 * Get x
 	 */
@@ -144,11 +136,9 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface {
 		this.parent = parent;		
 		
 		if (parent != null) {
-			Events.addListener(GuiEvent.class, guiEventListener);
-			Events.addListener(MouseEvent.class, mouseEventListener);
+			registerListeners();
 		} else {
-			Events.removeListener(GuiEvent.class, guiEventListener);
-			Events.removeListener(MouseEvent.class, mouseEventListener);
+			unregisterListeners();
 		}
 	}
 	
@@ -160,4 +150,48 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface {
 	public final Rectangle getBoundRect() {
 		return new Rectangle(getAbsoluteX(), getAbsoluteY(), width, height);
 	}
+	
+	/**
+	 * Register listeners
+	 * 
+	 */
+	protected void registerListeners() {
+		Events.addListener(GuiEvent.class, guiEventListener);
+		Events.addListener(MouseEvent.class, mouseEventListener);
+		Events.addListener(KeyEvent.class, keyEventListener);
+	}
+	
+	/**
+	 * Unregister listeners
+	 * 
+	 */
+	protected void unregisterListeners() {
+		Events.removeListener(GuiEvent.class, guiEventListener);
+		Events.removeListener(MouseEvent.class, mouseEventListener);
+		Events.removeListener(KeyEvent.class, keyEventListener);
+	}
+
+	// Gui events
+	@Override
+	public void paint(final Graphics2D graphics) { }
+	
+	// Mouse events
+	@Override
+	public void mouseClick(MouseEvent event) { }
+
+	@Override
+	public void mousePressed(MouseEvent event) { }
+
+	@Override
+	public void mouseReleased(MouseEvent event) { }
+	
+	// Key events
+	@Override
+	public void keyTyped(KeyEvent event) { }
+
+	@Override
+	public void keyPressed(KeyEvent event) { }
+
+	@Override
+	public void keyReleased(KeyEvent event) { }
 }
