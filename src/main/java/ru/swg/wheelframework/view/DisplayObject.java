@@ -8,16 +8,12 @@ import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
-import ru.swg.wheelframework.event.event.KeyEvent;
-import ru.swg.wheelframework.event.event.MouseEvent;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
-import ru.swg.wheelframework.event.listener.KeyEventListener;
-import ru.swg.wheelframework.event.listener.MouseEventListener;
 
 /**
  * Main class to display object
  */
-public class DisplayObject implements GuiEventInterface, MouseEventInterface, KeyEventInterface {
+public class DisplayObject implements GuiEventInterface {
 	// Element X
 	private int x = 0;
 	// Element Y
@@ -31,10 +27,6 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface, Ke
 	
 	// Default GuiEventListener
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
-	// Default GuiEventListener
-	private final MouseEventListener mouseEventListener = new MouseEventListener(this);
-	// Default GuiEventListener
-	private final KeyEventListener keyEventListener = new KeyEventListener(this);
 
 	/**
 	 * Get x
@@ -157,8 +149,6 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface, Ke
 	 */
 	protected void registerListeners() {
 		Events.addListener(GuiEvent.class, guiEventListener);
-		Events.addListener(MouseEvent.class, mouseEventListener);
-		Events.addListener(KeyEvent.class, keyEventListener);
 	}
 	
 	/**
@@ -167,31 +157,9 @@ public class DisplayObject implements GuiEventInterface, MouseEventInterface, Ke
 	 */
 	protected void unregisterListeners() {
 		Events.removeListener(GuiEvent.class, guiEventListener);
-		Events.removeListener(MouseEvent.class, mouseEventListener);
-		Events.removeListener(KeyEvent.class, keyEventListener);
 	}
 
 	// Gui events
 	@Override
-	public void paint(final Graphics2D graphics) { }
-	
-	// Mouse events
-	@Override
-	public void mouseClick(MouseEvent event) { }
-
-	@Override
-	public void mousePressed(MouseEvent event) { }
-
-	@Override
-	public void mouseReleased(MouseEvent event) { }
-	
-	// Key events
-	@Override
-	public void keyTyped(KeyEvent event) { }
-
-	@Override
-	public void keyPressed(KeyEvent event) { }
-
-	@Override
-	public void keyReleased(KeyEvent event) { }
+	public void paint(final Graphics2D graphics) { }	
 }

@@ -63,8 +63,17 @@ public final class Log {
 	 */
 	private static final void log(final int level, final String message) {
 		if (level <= Log.level) {
-			System.out.println(levelToString(level) + ": " + message);
+			System.out.print(levelToString(level) + ": " + message);
 		}
+	}
+	
+	/**
+	 * Inner log function
+	 * 
+	 * @param message
+	 */
+	public static final void log(final String message) {
+		System.out.print(message);
 	}
 	
 	/**
@@ -73,7 +82,7 @@ public final class Log {
 	 * @param message
 	 */
 	public static final void info(final String message) {
-		log(INFO, message);
+		log(INFO, message + "\r\n");
 	}
 
 	/**
@@ -82,7 +91,7 @@ public final class Log {
 	 * @param message
 	 */
 	public static final void debug(final String message) {
-		log(DEBUG, message);
+		log(DEBUG, message + "\r\n");
 	}
 	
 	/**
@@ -91,6 +100,6 @@ public final class Log {
 	 * @param message
 	 */
 	public static final void error(final String message) {
-		log(ERROR, message);
+		log(ERROR, message + "\r\n");
 	}
 }

@@ -39,11 +39,11 @@ public final class Scene extends JFrame {
 		
 		// mouse events listener
 		final MouseAdapter mouseAdapter = new MouseAdapter(gameBoard);
-		frame.addMouseListener(mouseAdapter);
-		frame.addMouseMotionListener(mouseAdapter);
-		frame.addMouseWheelListener(mouseAdapter);
+		frameworkAdapter.addMouseListener(mouseAdapter);
+		frameworkAdapter.addMouseMotionListener(mouseAdapter);
+		frameworkAdapter.addMouseWheelListener(mouseAdapter);
 
 		// keyboard events listener
-		frame.addKeyListener(new KeyAdapter());
+		frameworkAdapter.addKeyListener(new KeyAdapter());
     }
 }

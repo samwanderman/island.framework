@@ -13,4 +13,9 @@ public final class Config {
 	public static final int DEFAULT_ANIMATION_THREAD_DELAY = 500;
 	// Default background color
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.GRAY;
+	
+	// Cell statuses
+	public static final int CELL_AVAILABLE = 0;
+	public static final int CELL_UNAVAILABLE = -1;
+	public static final int CELL_TEMPORARILY_UNAVAILABLE = -2;
 }
