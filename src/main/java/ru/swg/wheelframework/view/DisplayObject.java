@@ -18,6 +18,8 @@ public class DisplayObject implements GuiEventInterface {
 	private int x = 0;
 	// Element Y
 	private int y = 0;
+	// Element z
+	private int z = 0;
 	// Element height
 	private int height = 0;
 	// Element width
@@ -67,6 +69,24 @@ public class DisplayObject implements GuiEventInterface {
 	 */
 	protected final void setY(final int y) {
 		this.y = y;
+	}
+	
+	/**
+	 * Set z
+	 * 
+	 * @param z
+	 */
+	protected final void setZ(final int z) {
+		this.z = z;
+	}
+	
+	/**
+	 * Get z coord
+	 * 
+	 * @return
+	 */
+	public final int getZ() {
+		return z;
 	}
 
 	/**

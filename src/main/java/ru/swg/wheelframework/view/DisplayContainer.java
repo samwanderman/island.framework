@@ -4,6 +4,7 @@
 package ru.swg.wheelframework.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +26,9 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 		}
 		
 		child.setParent(this);
-		return children.add(child);
+		final boolean res = children.add(child);
+		updateChildren();
+		return res;
 	}
 	
 	/**
@@ -59,6 +62,7 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 		
 		final boolean res = children.remove(child);
 		child.setParent(null);
+		updateChildren();
 		return res;
 	}
 	
@@ -70,5 +74,12 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 	@Override
 	public final List<DisplayObject> getChildren() {
 		return children;
+	}
+	
+	/**
+	 * Update sort order after operations
+	 */
+	protected void updateChildren() {
+		Collections.sort(children, new DisplayObjectComparator());
 	}
 }
