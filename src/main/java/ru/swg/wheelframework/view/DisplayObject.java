@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.interfaces.GuiEventInterface;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
 
 /**

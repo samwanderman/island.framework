@@ -4,7 +4,7 @@
 package ru.swg.wheelframework.event.listener;
 
 import ru.swg.wheelframework.event.event.KeyEvent;
-import ru.swg.wheelframework.view.KeyEventInterface;
+import ru.swg.wheelframework.event.interfaces.KeyEventInterface;
 
 /**
  * Key event listener

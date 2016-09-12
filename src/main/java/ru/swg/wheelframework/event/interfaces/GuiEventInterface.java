@@ -1,7 +1,7 @@
 /**
  * @author Potapov Sergei (sam-wanderman@yandex.ru)
  */
-package ru.swg.wheelframework.view;
+package ru.swg.wheelframework.event.interfaces;
 
 import java.awt.Graphics2D;
 

@@ -13,6 +13,8 @@ public final class Config {
 	public static final int DEFAULT_ANIMATION_THREAD_DELAY = 500;
 	// Default background color
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.GRAY;
+	// Sync events step
+	public static final int GLOBAL_TIMER_STEP = 10;
 	
 	// Cell statuses
 	public static final int CELL_AVAILABLE = 0;

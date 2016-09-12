@@ -5,9 +5,9 @@ package ru.swg.wheelframework.event.listener;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.MouseEvent;
+import ru.swg.wheelframework.event.interfaces.MouseEventInterface;
 import ru.swg.wheelframework.view.DisplayContainerInterface;
 import ru.swg.wheelframework.view.DisplayObject;
-import ru.swg.wheelframework.view.MouseEventInterface;
 
 /**
  * Mouse event listener

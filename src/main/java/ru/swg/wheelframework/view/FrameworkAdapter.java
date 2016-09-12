@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.event.SyncEvent;
 import ru.swg.wheelframework.log.Log;
 
 /**
@@ -24,6 +25,8 @@ public class FrameworkAdapter extends Component implements Runnable {
 	private final DisplayObject board;
 	// Animation thread
 	private final Thread animator = new Thread(this);
+	// sync thread
+	private final Thread syncer = new Thread(new SyncThread());
 	
 	/**
 	 * Constructor
@@ -39,6 +42,7 @@ public class FrameworkAdapter extends Component implements Runnable {
 	public final void addNotify() {
 		super.addNotify();
     	animator.start();
+    	syncer.start();
 	}
 	
 	@Override
@@ -68,6 +72,24 @@ public class FrameworkAdapter extends Component implements Runnable {
 			}
 			
 			beforeTime = System.currentTimeMillis();
+		}
+	}
+	
+	/**
+	 * Sync Thread
+	 * 
+	 */
+	private static final class SyncThread implements Runnable {
+		@Override
+		public final void run() {
+			while (true) {
+				Events.dispatch(new SyncEvent());
+				try {
+					Thread.sleep(Config.GLOBAL_TIMER_STEP);
+				} catch (InterruptedException e) {
+					Log.error("Sync event dispatch error");
+				}
+			}
 		}
 	}
 }
