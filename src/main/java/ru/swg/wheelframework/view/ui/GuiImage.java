@@ -32,6 +32,15 @@ public class GuiImage extends DisplayObject {
 		setHeight(image.getHeight(null));
 	}
 
+	/**
+	 * Get image path
+	 * 
+	 * @return
+	 */
+	protected final String getPath() {
+		return path;
+	}
+	
 	@Override
 	public void setParent(final DisplayObject parent) {
 		super.setParent(parent);
