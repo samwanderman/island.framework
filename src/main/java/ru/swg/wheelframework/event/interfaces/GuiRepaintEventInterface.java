@@ -4,9 +4,8 @@
 package ru.swg.wheelframework.event.interfaces;
 
 /**
- * Sync event interface
+ * Repaint event interface
  */
-public interface SyncEventInterface {
-	// Sync event
-	void sync();
+public interface GuiRepaintEventInterface {
+	void onRepaint();
 }

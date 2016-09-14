@@ -24,6 +24,6 @@ public final class SyncEventListener implements Listener<SyncEvent> {
 	
 	@Override
 	final public void notify(final SyncEvent event) {
-		target.onSync();
+		target.sync();
 	}
 }

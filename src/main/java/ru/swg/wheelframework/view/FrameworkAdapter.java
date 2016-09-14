@@ -10,13 +10,16 @@ import java.awt.Graphics2D;
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.event.GuiRepaintEvent;
 import ru.swg.wheelframework.event.event.SyncEvent;
+import ru.swg.wheelframework.event.interfaces.GuiRepaintEventInterface;
+import ru.swg.wheelframework.event.listener.GuiRepaintEventListener;
 import ru.swg.wheelframework.log.Log;
 
 /**
  * Adapter to java view system
  */
-public class FrameworkAdapter extends Component implements Runnable {
+public class FrameworkAdapter extends Component implements Runnable, GuiRepaintEventInterface {
 	private static final long serialVersionUID = -2752101691826758979L;
 	
 	// Fake container for proper event dispatching
@@ -27,6 +30,8 @@ public class FrameworkAdapter extends Component implements Runnable {
 	private final Thread animator = new Thread(this);
 	// sync thread
 	private final Thread syncer = new Thread(new SyncThread());
+	// Gui repaint event listener
+	private final GuiRepaintEventListener guiRepaintEventListener = new GuiRepaintEventListener(this);
 	
 	/**
 	 * Constructor
@@ -36,6 +41,7 @@ public class FrameworkAdapter extends Component implements Runnable {
 	public FrameworkAdapter(final DisplayObject board) {
 		this.board = board;
 		fakeContainer.addChild(board);
+		Events.addListener(GuiRepaintEvent.class, guiRepaintEventListener);
 	}
 	
 	@Override
@@ -73,6 +79,11 @@ public class FrameworkAdapter extends Component implements Runnable {
 			
 			beforeTime = System.currentTimeMillis();
 		}
+	}
+	
+	@Override
+	public final void onRepaint() {
+		this.repaint();
 	}
 	
 	/**
