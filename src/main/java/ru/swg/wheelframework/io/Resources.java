@@ -100,9 +100,23 @@ public final class Resources {
 	 * @return
 	 * @throws IOException
 	 */
-	public static <T> T loadObject(final String path, final Class<T> objectClass) 
+	public static final <T> T loadObject(final String path, final Class<T> objectClass) 
 			throws IOException {
 		return mapper.readValue(new File(CONST_RESOURCES + path), objectClass);
+	}
+	
+	/**
+	 * Load any json object through absolute path
+	 * 
+	 * @param absolutePath
+	 * @param objectClass
+	 * @param absolute
+	 * @return
+	 * @throws IOException
+	 */
+	public static final <T> T loadObject(final String absolutePath, final Class<T> objectClass, final boolean absolute) 
+			throws IOException {
+		return mapper.readValue(new File(absolutePath), objectClass);
 	}
 	
 	/**
