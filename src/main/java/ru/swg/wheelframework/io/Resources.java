@@ -3,7 +3,13 @@
  */
 package ru.swg.wheelframework.io;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -93,6 +99,24 @@ public final class Resources {
 	}
 	
 	/**
+	 * Save image to default storage
+	 * 
+	 * @param path
+	 * @param image
+	 * @throws IOException
+	 */
+	public static final void saveImage(final String path, final Image image) 
+			throws IOException {
+		final BufferedImage buffImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D graphics = buffImage.createGraphics();
+		graphics.setComposite(AlphaComposite.Clear);
+		graphics.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
+		graphics.setComposite(AlphaComposite.Src);
+		graphics.drawImage(image, null, null);
+		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
+	}
+	
+	/**
 	 * Load any json object
 	 * 
 	 * @param path
@@ -103,6 +127,18 @@ public final class Resources {
 	public static final <T> T loadObject(final String path, final Class<T> objectClass) 
 			throws IOException {
 		return mapper.readValue(new File(CONST_RESOURCES + path), objectClass);
+	}
+	
+	/**
+	 * Save any json object
+	 * 
+	 * @param path
+	 * @param object
+	 * @throws IOException
+	 */
+	public static final <T> void saveObject(final String path, final T object) 
+			throws IOException {
+		mapper.writeValue(new File(CONST_RESOURCES + path), object);
 	}
 	
 	/**
