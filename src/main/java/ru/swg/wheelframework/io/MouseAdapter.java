@@ -37,4 +37,14 @@ public final class MouseAdapter extends java.awt.event.MouseAdapter {
     public void mouseReleased(final java.awt.event.MouseEvent e) {
 		Events.dispatch(new MouseEvent(target, e.getButton(), MouseEvent.RELEASED, e.getX(), e.getY()));
 	}
+	
+	@Override
+	public void mouseMoved(final java.awt.event.MouseEvent e) {
+		Events.dispatch(new MouseEvent(target, MouseEvent.MOVED, e.getX(), e.getY()));
+	}
+	
+	@Override
+	public void mouseExited(final java.awt.event.MouseEvent e) {
+		Events.dispatch(new MouseEvent(target, MouseEvent.EXITED, e.getX(), e.getY()));
+	}
 }

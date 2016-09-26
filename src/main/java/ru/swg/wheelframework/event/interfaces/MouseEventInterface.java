@@ -15,4 +15,8 @@ public interface MouseEventInterface {
 	void mousePressed(final MouseEvent event);
 	// on mouse released
 	void mouseReleased(final MouseEvent event);
+	// on mouse move
+	void mouseMoved(final MouseEvent event);
+	// on mouse exit
+	void mouseExited(final MouseEvent event);
 }

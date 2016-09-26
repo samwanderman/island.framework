@@ -26,7 +26,7 @@ public final class Scene extends JFrame {
 	 * @param height
 	 */
     public Scene(final String title, final DisplayObject gameBoard, final int width, final int height) {
-    	final Component frameworkAdapter = new FrameworkAdapter(gameBoard);
+    	final Component frameworkAdapter = new FrameworkAdapter(gameBoard, width, height);
     	final JFrame frame = new JFrame();
 		frame.setSize(new Dimension(width, height));
 		frame.setTitle(title);
@@ -44,6 +44,6 @@ public final class Scene extends JFrame {
 		frameworkAdapter.addMouseWheelListener(mouseAdapter);
 
 		// keyboard events listener
-		frameworkAdapter.addKeyListener(new KeyAdapter());
+		frame.addKeyListener(new KeyAdapter());
     }
 }

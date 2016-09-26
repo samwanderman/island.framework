@@ -15,6 +15,10 @@ public class MouseEvent implements Event {
 	public static final int RELEASED = 2;
 	// clicked
 	public static final int CLICKED = 3;
+	// moved
+	public static final int MOVED = 4;
+	// exited
+	public static final int EXITED = 5;
 
 	// event target
 	private final DisplayObject target;
@@ -42,6 +46,22 @@ public class MouseEvent implements Event {
 		this.status = status;
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Constructor for move action
+	 * 
+	 * @param target
+	 * @param status
+	 * @param x
+	 * @param y
+	 */
+	public MouseEvent(final DisplayObject target, final int status, final int x, final int y) {
+		this.target = target;
+		num = 0;
+		this.status = status;
+		this.x = x;
+		this.y = y;		
 	}
 	
 	/**

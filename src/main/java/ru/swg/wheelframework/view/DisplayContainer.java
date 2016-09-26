@@ -15,6 +15,17 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 	private final List<DisplayObject> children = new ArrayList<>();
 	
 	/**
+	 * Constructor
+	 * 
+	 * @param width
+	 * @param height
+	 */
+	public DisplayContainer(final int width, final int height) {
+		setWidth(width);
+		setHeight(height);
+	}
+	
+	/**
 	 * Add child to parent
 	 * 
 	 * @param child

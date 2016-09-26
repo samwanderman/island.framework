@@ -41,6 +41,11 @@ public class MouseEventListener implements Listener<MouseEvent> {
 		case MouseEvent.RELEASED:
 			target.mouseReleased(event);
 			break;
+		case MouseEvent.MOVED:
+			target.mouseMoved(event);
+			break;
+		case MouseEvent.EXITED:
+			target.mouseExited(event);
 		}
 		
 		// If object is container - send events to all children

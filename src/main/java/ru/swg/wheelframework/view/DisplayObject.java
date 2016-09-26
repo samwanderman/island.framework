@@ -43,7 +43,7 @@ public class DisplayObject implements GuiEventInterface {
 	 * 
 	 * @param x
 	 */
-	public final void setX(final int x) {
+	public void setX(final int x) {
 		this.x = x;
 	}
 
@@ -68,7 +68,7 @@ public class DisplayObject implements GuiEventInterface {
 	 * 
 	 * @param y
 	 */
-	public final void setY(final int y) {
+	public void setY(final int y) {
 		this.y = y;
 	}
 	

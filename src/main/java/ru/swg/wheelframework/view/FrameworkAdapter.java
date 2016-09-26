@@ -23,7 +23,7 @@ public class FrameworkAdapter extends Component implements Runnable, GuiRepaintE
 	private static final long serialVersionUID = -2752101691826758979L;
 	
 	// Fake container for proper event dispatching
-	private final DisplayContainer fakeContainer = new DisplayContainer();
+	private final DisplayContainer fakeContainer;
 	// Current game board
 	private final DisplayObject board;
 	// Animation thread
@@ -38,8 +38,9 @@ public class FrameworkAdapter extends Component implements Runnable, GuiRepaintE
 	 * 
 	 * @param board
 	 */
-	public FrameworkAdapter(final DisplayObject board) {
+	public FrameworkAdapter(final DisplayObject board, final int width, final int height) {
 		this.board = board;
+		fakeContainer = new DisplayContainer(width, height);
 		fakeContainer.addChild(board);
 		Events.addListener(GuiRepaintEvent.class, guiRepaintEventListener);
 	}
