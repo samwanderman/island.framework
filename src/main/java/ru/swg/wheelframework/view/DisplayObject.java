@@ -102,7 +102,7 @@ public class DisplayObject implements GuiEventInterface {
 	/**
 	 * Get element width
 	 */
-	public final int getWidth() {
+	public int getWidth() {
 		return width;
 	}
 	
@@ -118,7 +118,7 @@ public class DisplayObject implements GuiEventInterface {
 	/**
 	 * Get element height
 	 */
-	public final int getHeight() {
+	public int getHeight() {
 		return height;
 	}
 	
