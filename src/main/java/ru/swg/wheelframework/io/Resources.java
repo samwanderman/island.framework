@@ -4,8 +4,6 @@
 package ru.swg.wheelframework.io;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -127,6 +125,19 @@ public final class Resources {
 	public static final <T> T loadObject(final String path, final Class<T> objectClass) 
 			throws IOException {
 		return mapper.readValue(new File(CONST_RESOURCES + path), objectClass);
+	}
+	
+	/**
+	 * Load any json object
+	 * 
+	 * @param file
+	 * @param objectClass
+	 * @return
+	 * @throws IOException
+	 */
+	public static final <T> T loadObject(final File file, final Class<T> objectClass) 
+			throws IOException {
+		return mapper.readValue(file, objectClass);
 	}
 	
 	/**
