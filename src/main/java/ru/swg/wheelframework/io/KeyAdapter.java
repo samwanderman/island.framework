@@ -11,9 +11,9 @@ import ru.swg.wheelframework.event.event.KeyEvent;
 /**
  * Key adapter
  */
-public final class KeyAdapter implements KeyListener {
+public class KeyAdapter implements KeyListener {
 	@Override
-	public final void keyTyped(final java.awt.event.KeyEvent e) {
+	public void keyTyped(final java.awt.event.KeyEvent e) {
 		Events.dispatch(new KeyEvent(e.getKeyChar(), KeyEvent.TYPED));
 	}
 	

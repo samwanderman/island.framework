@@ -10,7 +10,7 @@ import ru.swg.wheelframework.view.DisplayObject;
 /**
  * Mouse Adapter - translate java standart mouse events to framework mouse events
  */
-public final class MouseAdapter extends java.awt.event.MouseAdapter {
+public class MouseAdapter extends java.awt.event.MouseAdapter {
 	// main event target
 	private final DisplayObject target;
 	
@@ -29,12 +29,12 @@ public final class MouseAdapter extends java.awt.event.MouseAdapter {
 	}
 
 	@Override
-    public void mousePressed(final java.awt.event.MouseEvent e) {
+    public final void mousePressed(final java.awt.event.MouseEvent e) {
 		Events.dispatch(new MouseEvent(target, e.getButton(), MouseEvent.PRESSED, e.getX(), e.getY()));
 	}
 	
 	@Override
-    public void mouseReleased(final java.awt.event.MouseEvent e) {
+    public final void mouseReleased(final java.awt.event.MouseEvent e) {
 		Events.dispatch(new MouseEvent(target, e.getButton(), MouseEvent.RELEASED, e.getX(), e.getY()));
 	}
 	
@@ -44,7 +44,7 @@ public final class MouseAdapter extends java.awt.event.MouseAdapter {
 	}
 	
 	@Override
-	public void mouseExited(final java.awt.event.MouseEvent e) {
+	public final void mouseExited(final java.awt.event.MouseEvent e) {
 		Events.dispatch(new MouseEvent(target, MouseEvent.EXITED, e.getX(), e.getY()));
 	}
 }
