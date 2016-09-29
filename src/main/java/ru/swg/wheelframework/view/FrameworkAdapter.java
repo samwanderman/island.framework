@@ -3,6 +3,7 @@
  */
 package ru.swg.wheelframework.view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,6 +41,7 @@ public class FrameworkAdapter extends Component implements Runnable, GuiRepaintE
 	 */
 	public FrameworkAdapter(final DisplayObject board, final int width, final int height) {
 		this.board = board;
+		setBackground(Color.BLACK);
 		fakeContainer = new DisplayContainer(width, height);
 		fakeContainer.addChild(board);
 		Events.addListener(GuiRepaintEvent.class, guiRepaintEventListener);
