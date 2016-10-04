@@ -9,7 +9,7 @@ import ru.swg.wheelframework.event.interfaces.KeyEventInterface;
 /**
  * Key event listener
  */
-public class KeyEventListener implements Listener<KeyEvent> {
+public final class KeyEventListener implements Listener<KeyEvent> {
 	// target
 	private final KeyEventInterface target;
 	

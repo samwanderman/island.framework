@@ -31,15 +31,6 @@ public class GuiImage extends DisplayObject {
 		setWidth(image.getWidth(null));
 		setHeight(image.getHeight(null));
 	}
-
-	/**
-	 * Get image path
-	 * 
-	 * @return
-	 */
-	protected final String getPath() {
-		return path;
-	}
 	
 	@Override
 	public void setParent(final DisplayObject parent) {
@@ -49,5 +40,9 @@ public class GuiImage extends DisplayObject {
 	@Override
 	public void paint(final Graphics2D graphics) {
 		graphics.drawImage(ImageCache.get(path), getAbsoluteX(), getAbsoluteY(), null);
+	}
+	
+	public final Image getImage() {
+		return ImageCache.get(path);
 	}
 }

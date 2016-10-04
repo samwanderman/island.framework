@@ -12,7 +12,7 @@ import ru.swg.wheelframework.view.DisplayObject;
 /**
  * Mouse event listener
  */
-public class MouseEventListener implements Listener<MouseEvent> {
+public final class MouseEventListener implements Listener<MouseEvent> {
 	// Target
 	private final MouseEventInterface target;
 

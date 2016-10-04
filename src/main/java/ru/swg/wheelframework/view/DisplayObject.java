@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
+import ru.swg.wheelframework.event.event.GuiRepaintEvent;
 import ru.swg.wheelframework.event.interfaces.GuiEventInterface;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
 
@@ -160,7 +161,7 @@ public class DisplayObject implements GuiEventInterface {
 	 * 
 	 * @return
 	 */
-	public final Rectangle getBoundRect() {
+	public Rectangle getBoundRect() {
 		return new Rectangle(getAbsoluteX(), getAbsoluteY(), width, height);
 	}
 	
@@ -182,5 +183,9 @@ public class DisplayObject implements GuiEventInterface {
 
 	// Gui events
 	@Override
-	public void paint(final Graphics2D graphics) { }	
+	public void paint(final Graphics2D graphics) { }
+	
+	protected final void update() {
+		Events.dispatch(new GuiRepaintEvent());
+	}
 }
