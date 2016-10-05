@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import ru.swg.wheelframework.io.ImageCache;
 import ru.swg.wheelframework.io.Resources;
+import ru.swg.wheelframework.log.Log;
 import ru.swg.wheelframework.view.DisplayObject;
 
 /**
@@ -23,10 +24,15 @@ public class GuiImage extends DisplayObject {
 	 * 
 	 * @param path
 	 */
-	public GuiImage(final String path) 
-			throws IOException {
+	public GuiImage(final String path) {
 		this.path = path;
-		final Image image = Resources.loadImage(path);
+		Image image = null;
+		
+		try {
+			image = Resources.loadImage(path);
+		} catch (final IOException e) {
+			Log.error("Can't load image " + path);
+		}
 		ImageCache.set(path, image);
 		setWidth(image.getWidth(null));
 		setHeight(image.getHeight(null));

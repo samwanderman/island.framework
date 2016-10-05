@@ -185,7 +185,7 @@ public class DisplayObject implements GuiEventInterface {
 	@Override
 	public void paint(final Graphics2D graphics) { }
 	
-	protected final void update() {
+	protected void update() {
 		Events.dispatch(new GuiRepaintEvent());
 	}
 }
