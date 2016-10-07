@@ -152,6 +152,11 @@ public final class Resources {
 		mapper.writeValue(new File(CONST_RESOURCES + path), object);
 	}
 	
+	public static final <T> void saveObject(final String path, final T object, final boolean f) 
+			throws IOException {
+		mapper.writeValue(new File(path), object);
+	}
+	
 	/**
 	 * Load any json object through absolute path
 	 * 
@@ -176,5 +181,10 @@ public final class Resources {
 	public static JsonNode loadJSON(final String path) 
 			throws IOException {
 		return mapper.readTree(new File(CONST_RESOURCES + path));
+	}
+	
+	public static JsonNode loadJSON(final String path, final boolean f) 
+			throws IOException {
+		return mapper.readTree(new File(path));
 	}
 }
