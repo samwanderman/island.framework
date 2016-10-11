@@ -31,7 +31,7 @@ public class GuiImage extends DisplayObject {
 		try {
 			image = Resources.loadImage(path);
 		} catch (final IOException e) {
-			Log.error("Can't load image " + path);
+			Log.error(e.getLocalizedMessage());
 		}
 		ImageCache.set(path, image);
 		setWidth(image.getWidth(null));

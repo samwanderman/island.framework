@@ -14,6 +14,8 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 	// Children array
 	private final List<DisplayObject> children = new ArrayList<>();
 	
+	public DisplayContainer() { }
+	
 	/**
 	 * Constructor
 	 * 

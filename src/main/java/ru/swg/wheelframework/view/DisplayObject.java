@@ -33,6 +33,23 @@ public class DisplayObject implements GuiEventInterface {
 	private final GuiEventListener guiEventListener = new GuiEventListener(this);
 
 	/**
+	 * Constructor
+	 * 
+	 */
+	public DisplayObject() { }
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param width
+	 * @param height
+	 */
+	public DisplayObject(final int width, final int height) {
+		this.width = width;
+		this.height = height;
+	}
+	
+	/**
 	 * Get x
 	 */
 	public final int getX() {
