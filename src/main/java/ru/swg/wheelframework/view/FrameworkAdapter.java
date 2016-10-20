@@ -42,6 +42,7 @@ public class FrameworkAdapter extends Component implements Runnable, GuiRepaintE
 	 */
 	public FrameworkAdapter(final DisplayObject board, final int width, final int height) {
 		this.board = board;
+		setSize(new Dimension(width, height));
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.BLACK);
 		fakeContainer = new DisplayContainer(width, height);

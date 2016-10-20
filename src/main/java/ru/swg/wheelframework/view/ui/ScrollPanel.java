@@ -26,8 +26,6 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 	private final int MAP_SPEED = 4;
 	private final int KEY_SPEED = 10;
 	
-	private Padding padding = new Padding(0, 0, 0, 0);
-	
 	// listeners
 	private final MouseEventListener mouseEventListener = new MouseEventListener(this);
 	private final SyncEventListener syncEventListener = new SyncEventListener(this);
@@ -39,18 +37,12 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 	private int offsetY = 0;
 	private int speed = 0;
 	
+	private Padding padding = new Padding(0, 0, 0, 0);
+	
 	public ScrollPanel(final DisplayObject target, final int width, final int height) {
 		super(width, height);
 		this.target = target;
 		addChild(target);
-	}
-	
-	public final void setPadding(final Padding padding) {
-		if (padding != null) {
-			this.padding = padding;
-		} else {
-			this.padding = new Padding(0, 0, 0, 0);
-		}
 	}
 	
 	public final int getOffsetX() {
@@ -67,6 +59,14 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 	
 	public final void setOffsetY(final int offsetY) {
 		this.offsetY = offsetY;
+	}
+	
+	public final void setPadding(final Padding padding) {
+		this.padding = padding;
+		if (target != null) {
+			target.setX(padding.getLeft());
+			target.setY(padding.getTop());
+		}
 	}
 	
 	// listeners
@@ -159,20 +159,20 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 	private final void setTargetX(final int x) {
 		if (x >= padding.getLeft()) {
 			target.setX(padding.getLeft());
-		} else if (x >= getWidth() - target.getWidth() - padding.getRight()) {
-			target.setX(getWidth() - target.getWidth() - padding.getRight());
+		} else if (x <= getWidth() - target.getWidth() - padding.getRight() - padding.getLeft()) {
+			target.setX(getWidth() - target.getWidth() - padding.getRight() - padding.getLeft());
 		} else {
-			target.setX(x);	
+			target.setX(x);
 		}
 	}
 	
 	private final void setTargetY(final int y) {
 		if (y >= padding.getTop()) {
 			target.setY(padding.getTop());
-		} else if (y <= getHeight() - target.getHeight() - padding.getBottom()) {
-			target.setY(getHeight() - target.getHeight() - padding.getBottom());
+		} else if (y <= getHeight() - target.getHeight() - padding.getBottom() - padding.getTop()) {
+			target.setY(getHeight() - target.getHeight() - padding.getBottom() - padding.getTop());
 		} else {
-			target.setY(y);	
+			target.setY(y);
 		}
 	}
 }
