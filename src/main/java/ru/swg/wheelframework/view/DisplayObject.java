@@ -4,13 +4,13 @@
 package ru.swg.wheelframework.view;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
 import ru.swg.wheelframework.event.event.GuiRepaintEvent;
 import ru.swg.wheelframework.event.interfaces.GuiEventInterface;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
+import ru.swg.wheelframework.view.figure.Rectangle;
 
 /**
  * Main class to display object

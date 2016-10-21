@@ -1,7 +1,7 @@
 /**
  * @author Potapov Sergei (sam-wanderman@yandex.ru)
  */
-package ru.swg.wheelframework.view;
+package ru.swg.wheelframework.view.figure;
 
 /**
  * Simple point class

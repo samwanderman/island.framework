@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.util.ArrayUtil;
-import ru.swg.wheelframework.view.Point2D;
+import ru.swg.wheelframework.view.figure.Point2D;
 
 /**
  * Realization of Lee algorithm

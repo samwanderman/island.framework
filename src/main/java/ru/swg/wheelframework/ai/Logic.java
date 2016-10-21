@@ -5,7 +5,7 @@ package ru.swg.wheelframework.ai;
 
 import java.util.LinkedList;
 
-import ru.swg.wheelframework.view.Point2D;
+import ru.swg.wheelframework.view.figure.Point2D;
 
 /**
  * Algorithms
