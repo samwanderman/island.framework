@@ -13,9 +13,21 @@ import ru.swg.wheelframework.view.figure.Point2D;
  * Realization of Lee algorithm
  */
 public final class LeeFindPathAlgorithm implements PathFindInterface {
+	private static final int MAX_RANGE = 3;
+	
 	@Override
 	public final LinkedList<Point2D> find(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint) {
 		LinkedList<Point2D> path = new LinkedList<>();
+		
+		// Check if finish point available
+		if (srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_UNAVAILABLE) {
+			return path;
+		}
+		
+		// Check if finish point is busy
+		if (srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_TEMPORARILY_UNAVAILABLE) {
+			return path;
+		}
 		
 		// Check if click on same point
 		if (startPoint.equals(finishPoint)) {
@@ -197,5 +209,78 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	 */
 	private static final boolean isUnavailable(final int el) {
 		return el == Config.CELL_UNAVAILABLE;
+	}
+	
+	/**
+	 * Find nearest end point
+	 * 
+	 * @param srcMap
+	 * @param startPoint
+	 * @param finishPoint
+	 * @return
+	 */
+	private static final Point2D findNewEndPoint(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint) {
+		Point2D newEndPoint = null;
+		
+		// range
+		int n = 1;
+		// old coords
+		final int x = finishPoint.getX(), y = finishPoint.getY();
+		
+		while (true) {
+			for (int i = x - n ; i < x + n; i++) {
+				newEndPoint = checkNewEndPoint(srcMap, srcMap.length, srcMap[0].length, i, y - n);
+				if (newEndPoint != null) {
+					return newEndPoint;
+				}
+			}
+			
+			for (int j = y - n + 1; j < y + n; j++) {
+				newEndPoint = checkNewEndPoint(srcMap, srcMap.length, srcMap[0].length, x + n, j);
+				if (newEndPoint != null) {
+					return newEndPoint;
+				}
+			}
+			
+			for (int i = x + n - 1 ; i > x - n; i--) {
+				newEndPoint = checkNewEndPoint(srcMap, srcMap.length, srcMap[0].length, i, y + n);
+				if (newEndPoint != null) {
+					return newEndPoint;
+				}
+			}
+
+			for (int j = y + n - 1; j > y - n + 1; j--) {
+				newEndPoint = checkNewEndPoint(srcMap, srcMap.length, srcMap[0].length, x - n, j);
+				if (newEndPoint != null) {
+					return newEndPoint;
+				}
+			}
+			
+			if (++n >= MAX_RANGE) {
+				break;
+			}
+		}
+
+		return newEndPoint;
+	}
+
+	/**
+	 * Check if point available
+	 * 
+	 * @param map
+	 * @param width
+	 * @param height
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private static final Point2D checkNewEndPoint(final int[][] map, final int width, final int height, final int x, final int y) {
+		if ((x >= 0) && (y >= 0) && (x < width) && (y < height)) {
+			if (map[x][y] == Config.CELL_AVAILABLE) {
+				return new Point2D(x, y);
+			}
+		}
+
+		return null;
 	}
 }
