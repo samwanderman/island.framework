@@ -154,7 +154,7 @@ public class DisplayObject implements GuiEventInterface {
 	 * 
 	 * @return
 	 */
-	protected final DisplayObject getParent() {
+	public final DisplayObject getParent() {
 		return parent;
 	}
 	

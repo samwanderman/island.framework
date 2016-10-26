@@ -20,4 +20,14 @@ public interface PathFindInterface {
 	 * @return
 	 */
 	LinkedList<Point2D> find(final int[][] map, final Point2D startPoint, final Point2D finishPoint);
+	
+	/**
+	 * Find new end point
+	 * 
+	 * @param srcMap
+	 * @param startPoint
+	 * @param finishPoint
+	 * @return
+	 */
+	Point2D findNewEndPoint(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint);
 }

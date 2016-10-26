@@ -16,17 +16,17 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	private static final int MAX_RANGE = 3;
 	
 	@Override
-	public final LinkedList<Point2D> find(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint) {
+	public final LinkedList<Point2D> find(final int[][] srcMap, final Point2D startPoint, Point2D finishPoint) {
 		LinkedList<Point2D> path = new LinkedList<>();
 		
 		// Check if finish point available
-		if (srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_UNAVAILABLE) {
-			return path;
-		}
-		
-		// Check if finish point is busy
-		if (srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_TEMPORARILY_UNAVAILABLE) {
-			return path;
+		if ((srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_UNAVAILABLE) || srcMap[finishPoint.getX()][finishPoint.getY()] == Config.CELL_TEMPORARILY_UNAVAILABLE) {
+			final Point2D newFinishPoint = findNewEndPoint(srcMap, startPoint, finishPoint);
+			if (newFinishPoint != null) {
+				finishPoint = newFinishPoint;
+			} else {
+				return path;
+			}
 		}
 		
 		// Check if click on same point
@@ -197,8 +197,8 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	 * @param el
 	 * @return
 	 */
-	private static final boolean isAvailable(final int el) { 
-		return (el == Config.CELL_AVAILABLE) || (el == Config.CELL_TEMPORARILY_UNAVAILABLE);
+	private final boolean isAvailable(final int el) { 
+		return (el == Config.CELL_AVAILABLE) || (el == Config.CELL_BUSY) || (el == Config.CELL_TEMPORARILY_UNAVAILABLE);
 	}
 
 	/**
@@ -207,7 +207,7 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	 * @param el
 	 * @return
 	 */
-	private static final boolean isUnavailable(final int el) {
+	private final boolean isUnavailable(final int el) {
 		return el == Config.CELL_UNAVAILABLE;
 	}
 	
@@ -219,7 +219,8 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	 * @param finishPoint
 	 * @return
 	 */
-	private static final Point2D findNewEndPoint(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint) {
+	@Override
+	public final Point2D findNewEndPoint(final int[][] srcMap, final Point2D startPoint, final Point2D finishPoint) {
 		Point2D newEndPoint = null;
 		
 		// range
@@ -274,9 +275,9 @@ public final class LeeFindPathAlgorithm implements PathFindInterface {
 	 * @param y
 	 * @return
 	 */
-	private static final Point2D checkNewEndPoint(final int[][] map, final int width, final int height, final int x, final int y) {
+	private final Point2D checkNewEndPoint(final int[][] map, final int width, final int height, final int x, final int y) {
 		if ((x >= 0) && (y >= 0) && (x < width) && (y < height)) {
-			if (map[x][y] == Config.CELL_AVAILABLE) {
+			if ((map[x][y] == Config.CELL_AVAILABLE) || (map[x][y] == Config.CELL_BUSY)) {
 				return new Point2D(x, y);
 			}
 		}

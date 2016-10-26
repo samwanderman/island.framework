@@ -3,10 +3,6 @@
  */
 package ru.swg.wheelframework.ai;
 
-import java.util.LinkedList;
-
-import ru.swg.wheelframework.view.figure.Point2D;
-
 /**
  * Algorithms
  */
@@ -29,14 +25,11 @@ public final class Logic {
 	}
 	
 	/**
-	 * Find path
+	 * Get find path algorithm
 	 * 
-	 * @param map
-	 * @param startPoint
-	 * @param finishPoint
 	 * @return
 	 */
-	public static final LinkedList<Point2D> findPath(final int[][] map, final Point2D startPoint, final Point2D finishPoint) {
-		return findPathAlgorithm.find(map, startPoint, finishPoint);
+	public static final PathFindInterface getFindPathAlgorithm() {
+		return findPathAlgorithm;
 	}
 }
