@@ -3,11 +3,11 @@
  */
 package ru.swg.wheelframework.event.interfaces;
 
-import java.awt.Graphics2D;
+import ru.swg.wheelframework.view.GraphicsAdapter;
 
 /**
  * Interface for gui event handling
  */
 public interface GuiEventInterface {
-	void paint(final Graphics2D graphics);
+	void paint(final GraphicsAdapter graphics);
 }

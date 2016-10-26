@@ -3,8 +3,6 @@
  */
 package ru.swg.wheelframework.view;
 
-import java.awt.Graphics2D;
-
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
 import ru.swg.wheelframework.event.event.GuiRepaintEvent;
@@ -200,7 +198,7 @@ public class DisplayObject implements GuiEventInterface {
 
 	// Gui events
 	@Override
-	public void paint(final Graphics2D graphics) { }
+	public void paint(final GraphicsAdapter graphics) { }
 	
 	protected void update() {
 		Events.dispatch(new GuiRepaintEvent());

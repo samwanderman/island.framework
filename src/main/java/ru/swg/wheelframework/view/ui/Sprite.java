@@ -4,10 +4,10 @@
 package ru.swg.wheelframework.view.ui;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.view.DisplayObject;
+import ru.swg.wheelframework.view.GraphicsAdapter;
 
 /**
  * Simple sprite
@@ -26,7 +26,7 @@ public final class Sprite extends DisplayObject {
 	}
 
 	@Override
-	public final void paint(final Graphics2D graphics) {
+	public final void paint(final GraphicsAdapter graphics) {
 		graphics.setColor(color);
 		graphics.fillRect(getAbsoluteX(), getAbsoluteY(), getWidth(), getHeight());
 	}

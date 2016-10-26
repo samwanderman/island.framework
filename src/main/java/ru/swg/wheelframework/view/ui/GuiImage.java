@@ -3,7 +3,6 @@
  */
 package ru.swg.wheelframework.view.ui;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 
@@ -11,6 +10,7 @@ import ru.swg.wheelframework.io.ImageCache;
 import ru.swg.wheelframework.io.Resources;
 import ru.swg.wheelframework.log.Log;
 import ru.swg.wheelframework.view.DisplayObject;
+import ru.swg.wheelframework.view.GraphicsAdapter;
 
 /**
  * Class for Images
@@ -44,8 +44,8 @@ public class GuiImage extends DisplayObject {
 	}
 
 	@Override
-	public void paint(final Graphics2D graphics) {
-		graphics.drawImage(ImageCache.get(path), getAbsoluteX(), getAbsoluteY(), null);
+	public void paint(final GraphicsAdapter graphics) {
+		graphics.drawImage(ImageCache.get(path), getAbsoluteX(), getAbsoluteY());
 	}
 	
 	public final Image getImage() {
