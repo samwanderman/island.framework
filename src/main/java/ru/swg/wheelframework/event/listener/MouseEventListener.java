@@ -59,4 +59,9 @@ public final class MouseEventListener implements Listener<MouseEvent> {
 			}
 		}
 	}
+
+	@Override
+	public final boolean checkTarget(final DisplayObject target) {
+		return this.target == (MouseEventInterface) target;
+	}
 }

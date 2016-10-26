@@ -45,24 +45,6 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 	}
 	
 	/**
-	 * Add multiple children to parent
-	 * 
-	 * @param children
-	 * @return
-	 */
-	/*public final boolean addChildren(final List<DisplayObject> children) {
-		if (ListUtil.containsSingle(this.children, children)) {
-			return false;
-		}
-		
-		for (final DisplayObject child: children) {
-			child.setParent(this);	
-		}
-		
-		return children.addAll(children);
-	}*/
-	
-	/**
 	 * Remove child from parent
 	 * 
 	 * @param child
@@ -72,7 +54,6 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 		if (!children.contains(child)) {
 			return false;
 		}
-		
 		final boolean res = children.remove(child);
 		child.setParent(null);
 		updateChildren();

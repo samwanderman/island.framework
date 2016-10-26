@@ -42,4 +42,9 @@ public final class GuiEventListener implements Listener<GuiEvent> {
 			}
 		}
 	}
+
+	@Override
+	public final boolean checkTarget(final DisplayObject target) {
+		return this.target == (GuiEventInterface) target;
+	}
 }

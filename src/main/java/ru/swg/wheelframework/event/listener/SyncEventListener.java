@@ -5,6 +5,7 @@ package ru.swg.wheelframework.event.listener;
 
 import ru.swg.wheelframework.event.event.SyncEvent;
 import ru.swg.wheelframework.event.interfaces.SyncEventInterface;
+import ru.swg.wheelframework.view.DisplayObject;
 
 /**
  * Sync event listener
@@ -25,5 +26,10 @@ public final class SyncEventListener implements Listener<SyncEvent> {
 	@Override
 	final public void notify(final SyncEvent event) {
 		target.sync();
+	}
+
+	@Override
+	public final boolean checkTarget(final DisplayObject target) {
+		return this.target == (SyncEventInterface) target;
 	}
 }

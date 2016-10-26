@@ -10,6 +10,7 @@ import java.util.Map;
 
 import ru.swg.wheelframework.event.event.Event;
 import ru.swg.wheelframework.event.listener.Listener;
+import ru.swg.wheelframework.view.DisplayObject;
 
 /**
  * Class for events manipulating
@@ -57,6 +58,29 @@ public final class Events {
 		
 		eventListeners.remove(listener);
 		listeners.put(eventType, eventListeners);
+		
+		return true;
+	}
+	
+	/**
+	 * Remove listener
+	 * 
+	 * @param eventType
+	 * @param target
+	 * @return
+	 */
+	public static final boolean removeListeners(final Class<? extends Event> eventType, final DisplayObject target) {
+		final List<Listener<? extends Event>> eventListeners = listeners.get(eventType);
+		
+		if (eventListeners == null) {
+			return false;
+		}
+		
+		for (final Listener<? extends Event> listener: eventListeners) {
+			if (listener.checkTarget(target)) {
+				return removeListener(eventType, listener);
+			}
+		}
 		
 		return true;
 	}

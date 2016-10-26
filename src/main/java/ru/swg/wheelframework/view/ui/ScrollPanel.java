@@ -3,16 +3,11 @@
  */
 package ru.swg.wheelframework.view.ui;
 
-import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.KeyEvent;
 import ru.swg.wheelframework.event.event.MouseEvent;
-import ru.swg.wheelframework.event.event.SyncEvent;
 import ru.swg.wheelframework.event.interfaces.KeyEventInterface;
 import ru.swg.wheelframework.event.interfaces.MouseEventInterface;
 import ru.swg.wheelframework.event.interfaces.SyncEventInterface;
-import ru.swg.wheelframework.event.listener.KeyEventListener;
-import ru.swg.wheelframework.event.listener.MouseEventListener;
-import ru.swg.wheelframework.event.listener.SyncEventListener;
 import ru.swg.wheelframework.view.DisplayContainer;
 import ru.swg.wheelframework.view.DisplayObject;
 import ru.swg.wheelframework.view.Padding;
@@ -25,11 +20,6 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 	private final int MOUSE_DETECT_Y_OFFSET = 40;
 	private final int MAP_SPEED = 4;
 	private final int KEY_SPEED = 10;
-	
-	// listeners
-	private final MouseEventListener mouseEventListener = new MouseEventListener(this);
-	private final SyncEventListener syncEventListener = new SyncEventListener(this);
-	private final KeyEventListener keyEventListener = new KeyEventListener(this);
 
 	private final DisplayObject target;
 	
@@ -68,23 +58,6 @@ public class ScrollPanel extends DisplayContainer implements MouseEventInterface
 			target.setY(padding.getTop());
 		}
 	}
-	
-	// listeners
-	@Override
-	protected final void registerListeners() {
-		super.registerListeners();
-		Events.addListener(MouseEvent.class, mouseEventListener);
-		Events.addListener(SyncEvent.class, syncEventListener);
-		Events.addListener(KeyEvent.class, keyEventListener);
-	};
-	
-	@Override
-	protected final void unregisterListeners() {
-		super.unregisterListeners();
-		Events.removeListener(MouseEvent.class, mouseEventListener);
-		Events.removeListener(SyncEvent.class, syncEventListener);
-		Events.removeListener(KeyEvent.class, keyEventListener);
-	};
 	
 	@Override
 	public final void keyTyped(final KeyEvent event) {

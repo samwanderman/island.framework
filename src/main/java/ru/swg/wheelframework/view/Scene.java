@@ -16,7 +16,7 @@ import ru.swg.wheelframework.io.MouseAdapter;
  */
 public final class Scene extends JFrame {
 	private static final long serialVersionUID = -4421670693048202427L;
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -25,9 +25,9 @@ public final class Scene extends JFrame {
 	 * @param width
 	 * @param height
 	 */
-    public Scene(final String title, final DisplayObject gameBoard, final int width, final int height) {
-    	final Component frameworkAdapter = new FrameworkAdapter(gameBoard, width, height);
-    	final JFrame frame = new JFrame();
+	public Scene(final String title, final DisplayObject gameBoard, final int width, final int height) {
+		final Component frameworkAdapter = new FrameworkAdapter(gameBoard, width, height);
+		final JFrame frame = new JFrame();
 		frame.setSize(new Dimension(width, height));
 		frame.setTitle(title);
 		frame.getContentPane().add(frameworkAdapter);
@@ -36,7 +36,7 @@ public final class Scene extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setFocusable(true);
 		frame.setVisible(true);
-		
+
 		// mouse events listener
 		final MouseAdapter mouseAdapter = new MouseAdapter(gameBoard);
 		frameworkAdapter.addMouseListener(mouseAdapter);
@@ -45,5 +45,5 @@ public final class Scene extends JFrame {
 
 		// keyboard events listener
 		frame.addKeyListener(new KeyAdapter());
-    }
+	}
 }

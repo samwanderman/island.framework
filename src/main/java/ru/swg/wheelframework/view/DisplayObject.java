@@ -6,8 +6,19 @@ package ru.swg.wheelframework.view;
 import ru.swg.wheelframework.event.Events;
 import ru.swg.wheelframework.event.event.GuiEvent;
 import ru.swg.wheelframework.event.event.GuiRepaintEvent;
+import ru.swg.wheelframework.event.event.KeyEvent;
+import ru.swg.wheelframework.event.event.MouseEvent;
+import ru.swg.wheelframework.event.event.SyncEvent;
 import ru.swg.wheelframework.event.interfaces.GuiEventInterface;
+import ru.swg.wheelframework.event.interfaces.GuiRepaintEventInterface;
+import ru.swg.wheelframework.event.interfaces.KeyEventInterface;
+import ru.swg.wheelframework.event.interfaces.MouseEventInterface;
+import ru.swg.wheelframework.event.interfaces.SyncEventInterface;
 import ru.swg.wheelframework.event.listener.GuiEventListener;
+import ru.swg.wheelframework.event.listener.GuiRepaintEventListener;
+import ru.swg.wheelframework.event.listener.KeyEventListener;
+import ru.swg.wheelframework.event.listener.MouseEventListener;
+import ru.swg.wheelframework.event.listener.SyncEventListener;
 import ru.swg.wheelframework.view.figure.Rectangle;
 
 /**
@@ -26,9 +37,6 @@ public class DisplayObject implements GuiEventInterface {
 	private int width = 0;
 	// Parent
 	private DisplayObject parent = null;
-	
-	// Default GuiEventListener
-	private final GuiEventListener guiEventListener = new GuiEventListener(this);
 
 	/**
 	 * Constructor
@@ -165,9 +173,45 @@ public class DisplayObject implements GuiEventInterface {
 		this.parent = parent;		
 		
 		if (parent != null) {
-			registerListeners();
+			if (this instanceof GuiEventInterface) {
+				Events.addListener(GuiEvent.class, new GuiEventListener((GuiEventInterface) this));
+			}
+			
+			if (this instanceof GuiRepaintEventInterface) {
+				Events.addListener(GuiRepaintEvent.class, new GuiRepaintEventListener((GuiRepaintEventInterface) this));
+			}
+			
+			if (this instanceof KeyEventInterface) {
+				Events.addListener(KeyEvent.class, new KeyEventListener((KeyEventInterface) this));
+			}
+			
+			if (this instanceof MouseEventInterface) {
+				Events.addListener(MouseEvent.class, new MouseEventListener((MouseEventInterface) this));
+			}
+			
+			if (this instanceof SyncEventInterface) {
+				Events.addListener(SyncEvent.class, new SyncEventListener((SyncEventInterface) this));
+			}
 		} else {
-			unregisterListeners();
+			if (this instanceof GuiEventInterface) {
+				Events.removeListeners(GuiEvent.class, this);
+			}
+			
+			if (this instanceof GuiRepaintEventInterface) {
+				Events.removeListeners(GuiRepaintEvent.class, this);
+			}
+			
+			if (this instanceof KeyEventInterface) {
+				Events.removeListeners(KeyEvent.class, this);
+			}
+			
+			if (this instanceof MouseEventInterface) {
+				Events.removeListeners(MouseEvent.class, this);
+			}
+			
+			if (this instanceof SyncEventInterface) {
+				Events.removeListeners(SyncEvent.class, this);
+			}
 		}
 	}
 	
@@ -178,22 +222,6 @@ public class DisplayObject implements GuiEventInterface {
 	 */
 	public Rectangle getBoundRect() {
 		return new Rectangle(getAbsoluteX(), getAbsoluteY(), width, height);
-	}
-	
-	/**
-	 * Register listeners
-	 * 
-	 */
-	protected void registerListeners() {
-		Events.addListener(GuiEvent.class, guiEventListener);
-	}
-	
-	/**
-	 * Unregister listeners
-	 * 
-	 */
-	protected void unregisterListeners() {
-		Events.removeListener(GuiEvent.class, guiEventListener);
 	}
 
 	// Gui events

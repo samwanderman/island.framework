@@ -36,28 +36,9 @@ public final class ImageCache {
 	}
 	
 	/**
-	 * Remove image from cache
-	 * 
-	 * @param key
-	 */
-	/*public static final void remove(final String key) {
-		cache.remove(key);
-	}*/
-	
-	/**
-	 * Check if element already exists
-	 * 
-	 * @param key
-	 * @return
-	 */
-	/*public static final boolean hasKey(final String key) {
-		return cache.containsKey(key);
-	}*/
-	
-	/**
 	 * Clear cache
 	 */
-	/*public static final void reset() {
+	public static final void reset() {
 		cache.clear();
-	}*/
+	}
 }

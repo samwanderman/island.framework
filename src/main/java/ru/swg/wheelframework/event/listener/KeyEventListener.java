@@ -5,6 +5,7 @@ package ru.swg.wheelframework.event.listener;
 
 import ru.swg.wheelframework.event.event.KeyEvent;
 import ru.swg.wheelframework.event.interfaces.KeyEventInterface;
+import ru.swg.wheelframework.view.DisplayObject;
 
 /**
  * Key event listener
@@ -30,5 +31,10 @@ public final class KeyEventListener implements Listener<KeyEvent> {
 			target.keyReleased(event);
 			break;
 		}
+	}
+
+	@Override
+	public final boolean checkTarget(final DisplayObject target) {
+		return this.target == (KeyEventInterface) target;
 	}
 }
