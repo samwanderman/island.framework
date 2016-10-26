@@ -3,14 +3,14 @@
  */
 package ru.swg.wheelframework.view.ui;
 
-import java.awt.Image;
 import java.io.IOException;
 
 import ru.swg.wheelframework.io.ImageCache;
 import ru.swg.wheelframework.io.Resources;
 import ru.swg.wheelframework.log.Log;
 import ru.swg.wheelframework.view.DisplayObject;
-import ru.swg.wheelframework.view.GraphicsAdapter;
+import ru.swg.wheelframework.view.Graphics;
+import ru.swg.wheelframework.view.Image;
 
 /**
  * Class for Images
@@ -34,8 +34,8 @@ public class GuiImage extends DisplayObject {
 			Log.error(e.getLocalizedMessage());
 		}
 		ImageCache.set(path, image);
-		setWidth(image.getWidth(null));
-		setHeight(image.getHeight(null));
+		setWidth(image.getWidth());
+		setHeight(image.getHeight());
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class GuiImage extends DisplayObject {
 	}
 
 	@Override
-	public void paint(final GraphicsAdapter graphics) {
+	public void paint(final Graphics graphics) {
 		graphics.drawImage(ImageCache.get(path), getAbsoluteX(), getAbsoluteY());
 	}
 	

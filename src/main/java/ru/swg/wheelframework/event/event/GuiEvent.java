@@ -4,14 +4,14 @@
 package ru.swg.wheelframework.event.event;
 
 import ru.swg.wheelframework.view.DisplayObject;
-import ru.swg.wheelframework.view.GraphicsAdapter;
+import ru.swg.wheelframework.view.Graphics;
 
 /**
  * Simple Gui event
  */
 public final class GuiEvent implements Event {
 	// Graphics object
-	private final GraphicsAdapter graphics;
+	private final Graphics graphics;
 	// Event target
 	private final DisplayObject target;
 	
@@ -21,7 +21,7 @@ public final class GuiEvent implements Event {
 	 * @param target
 	 * @param graphics
 	 */
-	public GuiEvent(final DisplayObject target, final GraphicsAdapter graphics) {
+	public GuiEvent(final DisplayObject target, final Graphics graphics) {
 		this.target = target;
 		this.graphics = graphics;
 	}
@@ -31,7 +31,7 @@ public final class GuiEvent implements Event {
 	 * 
 	 * @return
 	 */
-	public final GraphicsAdapter getGraphics() {
+	public final Graphics getGraphics() {
 		return graphics;
 	}
 	

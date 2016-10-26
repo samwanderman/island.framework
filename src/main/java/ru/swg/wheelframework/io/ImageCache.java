@@ -3,9 +3,10 @@
  */
 package ru.swg.wheelframework.io;
 
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
+
+import ru.swg.wheelframework.view.Image;
 
 /**
  * Simple image cache

@@ -3,9 +3,6 @@
  */
 package ru.swg.wheelframework.io;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
@@ -24,6 +21,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ru.swg.wheelframework.log.Log;
+import ru.swg.wheelframework.view.Graphics;
+import ru.swg.wheelframework.view.Image;
 
 /**
  * Class for resources manipulating
@@ -93,7 +92,7 @@ public final class Resources {
 	 */
 	public static final Image loadImage(final String path) 
 			throws IOException {
-		return ImageIO.read(new File(CONST_RESOURCES + "/images/" + path));
+		return new Image(ImageIO.read(new File(CONST_RESOURCES + "/images/" + path)));
 	}
 	
 	/**
@@ -105,11 +104,11 @@ public final class Resources {
 	 */
 	public static final void saveImage(final String path, final Image image) 
 			throws IOException {
-		final BufferedImage buffImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-		final Graphics2D graphics = buffImage.createGraphics();
-		graphics.setComposite(AlphaComposite.Clear);
-		graphics.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
-		graphics.setComposite(AlphaComposite.Src);
+		final BufferedImage buffImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		final Graphics graphics = new Graphics(buffImage.createGraphics());
+		graphics.setComposite(Graphics.COMPOSITE_ALPHA);
+		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+		graphics.setComposite(Graphics.COMPOSITE_SRC);
 		graphics.drawImage(image, null, null);
 		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
 	}

@@ -3,11 +3,11 @@
  */
 package ru.swg.wheelframework.event.interfaces;
 
-import ru.swg.wheelframework.view.GraphicsAdapter;
+import ru.swg.wheelframework.view.Graphics;
 
 /**
  * Interface for gui event handling
  */
 public interface GuiEventInterface {
-	void paint(final GraphicsAdapter graphics);
+	void paint(final Graphics graphics);
 }

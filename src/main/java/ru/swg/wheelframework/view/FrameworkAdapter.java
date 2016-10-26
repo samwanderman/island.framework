@@ -6,7 +6,6 @@ package ru.swg.wheelframework.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.event.Events;
@@ -57,9 +56,9 @@ public class FrameworkAdapter extends Component implements Runnable, GuiRepaintE
 	}
 	
 	@Override
-	public final void paint(final Graphics graphics) {
+	public final void paint(final java.awt.Graphics graphics) {
 		super.paint(graphics);
-		final GuiEvent event = new GuiEvent(board, new GraphicsAdapter(graphics));
+		final GuiEvent event = new GuiEvent(board, new Graphics(graphics));
 		Events.dispatch(event);
 	}
 	

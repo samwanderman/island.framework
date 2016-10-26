@@ -3,11 +3,10 @@
  */
 package ru.swg.wheelframework.view.ui;
 
-import java.awt.Color;
-
 import ru.swg.wheelframework.core.Config;
+import ru.swg.wheelframework.view.Color;
 import ru.swg.wheelframework.view.DisplayObject;
-import ru.swg.wheelframework.view.GraphicsAdapter;
+import ru.swg.wheelframework.view.Graphics;
 
 /**
  * Simple sprite
@@ -15,6 +14,11 @@ import ru.swg.wheelframework.view.GraphicsAdapter;
 public final class Sprite extends DisplayObject {
 	// Element color - FIXME
 	private Color color = Config.DEFAULT_BACKGROUND_COLOR;
+	private float opacity = 1.0f;
+	
+	public final void setOpacity(final float opacity) {
+		this.opacity = opacity;
+	}
 	
 	/**
 	 * Set element color
@@ -26,7 +30,7 @@ public final class Sprite extends DisplayObject {
 	}
 
 	@Override
-	public final void paint(final GraphicsAdapter graphics) {
+	public final void paint(final Graphics graphics) {
 		graphics.setColor(color);
 		graphics.fillRect(getAbsoluteX(), getAbsoluteY(), getWidth(), getHeight());
 	}

@@ -3,7 +3,7 @@
  */
 package ru.swg.wheelframework.core;
 
-import java.awt.Color;
+import ru.swg.wheelframework.view.Color;
 
 /**
  * Framework configuration
