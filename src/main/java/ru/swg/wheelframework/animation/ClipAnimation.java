@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.swg.wheelframework.core.Config;
 import ru.swg.wheelframework.event.interfaces.GuiEventInterface;
+import ru.swg.wheelframework.event.listener.ObjectListener;
 import ru.swg.wheelframework.view.DisplayObject;
 import ru.swg.wheelframework.view.Graphics;
 import ru.swg.wheelframework.view.Image;
@@ -12,13 +13,14 @@ import ru.swg.wheelframework.view.Image;
 /**
  * Clip animation
  */
-public final class ClipAnimation extends Animation implements GuiEventInterface {
+public class ClipAnimation extends Animation implements GuiEventInterface {
 	private final DisplayObject target;
 	private final List<Image> images;
 	private final int speed;
 	private int step;
 	
-	public ClipAnimation(final DisplayObject target, final List<Image> images, final int speed) {
+	public ClipAnimation(final DisplayObject target, final List<Image> images, final int speed, final ObjectListener<Boolean> successCallback, final ObjectListener<Object> errorCallback) {
+		super(successCallback, errorCallback);
 		this.target = target;
 		this.images = (images == null ? new ArrayList<Image>() : images);
 		this.speed = speed;
@@ -26,9 +28,24 @@ public final class ClipAnimation extends Animation implements GuiEventInterface 
 	}
 	
 	@Override
+	public final void reset() {
+		stop();
+		step = 0;
+	}
+	
+	@Override
 	public final void run() {
+		if (!isRunning()) {
+			return;
+		}
+		
 		if (step >= speed) {
-			stop();
+			if (getSuccessCallback() != null) {
+				getSuccessCallback().on(true);
+				return;
+			}
+			
+			step = 0;
 		}
 
 		step += Config.GLOBAL_TIMER_STEP;
@@ -41,6 +58,15 @@ public final class ClipAnimation extends Animation implements GuiEventInterface 
 		if (idx > images.size() - 1) {
 			idx = images.size() - 1;
 		}
-		graphics.drawImage(images.get(idx), target.getX(), target.getY());
+		
+		paintImage(graphics, images.get(idx));
+	}
+	
+	protected final DisplayObject getTarget() {
+		return target;
+	}
+	
+	protected void paintImage(final Graphics graphics, final Image image) {
+		graphics.drawImage(image, target.getX(), target.getY());		
 	}
 }

@@ -10,6 +10,8 @@ public interface AnimationInterface {
 	void stop();
 	// Restart animation
 	void restart();
+	// Reset animation
+	void reset();
 	// Run animation
 	void run();
 	// check if animation running

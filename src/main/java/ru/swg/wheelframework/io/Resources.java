@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -82,6 +84,11 @@ public final class Resources {
 	public static final String getString(final String key) {
 		return strings.getProperty(key);
 	}
+
+	private static final Image loadImage(final File file) 
+			throws IOException {
+		return new Image(ImageIO.read(file));
+	}
 	
 	/**
 	 * Load image from default storage
@@ -92,7 +99,7 @@ public final class Resources {
 	 */
 	public static final Image loadImage(final String path) 
 			throws IOException {
-		return new Image(ImageIO.read(new File(CONST_RESOURCES + "/images/" + path)));
+		return loadImage(new File(CONST_RESOURCES + "/images/" + path));
 	}
 	
 	/**
@@ -111,6 +118,31 @@ public final class Resources {
 		graphics.setComposite(Graphics.COMPOSITE_SRC);
 		graphics.drawImage(image, null, null);
 		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
+	}
+	
+	/**
+	 * Load animation
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static final List<Image> loadAnimation(final String path) 
+			throws IOException {
+		final List<Image> images = new ArrayList<Image>();
+		final File directory = new File(CONST_RESOURCES + "/animations/" + path);
+		if (!directory.exists() || !directory.isDirectory()) {
+			return images;
+		}
+		
+		final File[] files = directory.listFiles();
+		for (final File file: files) {
+			if (file.isFile()) {
+				images.add(loadImage(file));
+			}
+		}
+		
+		return images;
 	}
 	
 	/**
