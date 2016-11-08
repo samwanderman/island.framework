@@ -22,12 +22,12 @@ public class Animation implements AnimationInterface {
 	}
 	
 	@Override
-	public final void start() {
+	public void start() {
 		running = true;
 	}
 
 	@Override
-	public final void stop() {
+	public void stop() {
 		running = false;
 	}
 
