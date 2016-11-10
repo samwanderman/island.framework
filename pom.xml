@@ -5,9 +5,9 @@
   
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.samwanderman</groupId>
-  <artifactId>rtwf</artifactId>
+  <artifactId>wheel</artifactId>
   <version>0.0.1</version>
-  <name>Re-invention The Wheel Framework</name>
+  <name>Wheel Framework</name>
   <description>Java 2D Game Framework</description>
   <packaging>jar</packaging>
   
@@ -29,7 +29,7 @@
   </dependencies>
   
   <build>
-  	<finalName>framework</finalName>
+  	<finalName>wheel</finalName>
   
     <plugins>
       <plugin>
