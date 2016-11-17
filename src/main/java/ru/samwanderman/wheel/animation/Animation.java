@@ -1,58 +1,71 @@
-/**
- * @author Potapov Sergei (sam-wanderman@yandex.ru)
- */
 package ru.samwanderman.wheel.animation;
 
-import ru.samwanderman.wheel.event.interfaces.AnimationInterface;
-import ru.samwanderman.wheel.event.listener.ObjectListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import ru.samwanderman.wheel.core.Config;
+import ru.samwanderman.wheel.view.Image;
 
 /**
- * Animation interface
+ * Animation
+ * 
+ * Simple animation without state controls
  */
-public class Animation implements AnimationInterface {
+public class Animation implements IAnimation {
 	private boolean running = false;
-	private ObjectListener successCallback = null;
-	private ObjectListener errorCallback = null;
+	private final List<Image> images;
+	private final int speed;
+	private int step;
 	
-	public Animation() { }
-	
-	public Animation(final ObjectListener successCallback, final ObjectListener errorCallback) {
-		this.successCallback = successCallback;
-		this.errorCallback = errorCallback;
+	public Animation(final List<Image> images, final int speed) {
+		this.images = (images == null ? new ArrayList<Image>() : images);
+		this.speed = speed;
+		step = 0;
 	}
 	
-	@Override
-	public void start() {
-		running = true;
-	}
-
-	@Override
-	public void stop() {
-		running = false;
-	}
-
-	@Override
-	public final void restart() {
-		stop();
-		start();
-	}
-	
-	@Override
-	public void reset() { }
-
-	@Override
-	public void run() { }
-
 	@Override
 	public final boolean isRunning() {
 		return running;
 	}
 	
-	protected final ObjectListener getSuccessCallback() {
-		return successCallback;
+	@Override
+	public final void play() {
+		running = true;
 	}
 	
-	protected final ObjectListener getErrorCallback() {
-		return errorCallback;
+	@Override
+	public final void pause() {
+		running = false;
+	}
+	
+	@Override
+	public void stop() {
+		running = false;
+		step = 0;
+	}
+		
+	@Override
+	public final void sync() {
+		if (!running) {
+			return;
+		}
+		
+		if (step >= speed) {
+			step = 0;
+			stop();
+		}
+
+		step += Config.GLOBAL_TIMER_STEP;
+	}
+	
+	@Override
+	public final Image getImage() {
+		final int num = speed / images.size();
+		int idx = step / num + (step % num > 0 ? 1 : 0);
+		if (idx > images.size() - 1) {
+			idx = images.size() - 1;
+		}
+		
+		return images.get(idx);
 	}
 }

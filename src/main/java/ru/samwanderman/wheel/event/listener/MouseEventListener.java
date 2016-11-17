@@ -4,8 +4,8 @@
 package ru.samwanderman.wheel.event.listener;
 
 import ru.samwanderman.wheel.event.Events;
+import ru.samwanderman.wheel.event.event.IMouseEvent;
 import ru.samwanderman.wheel.event.event.MouseEvent;
-import ru.samwanderman.wheel.event.interfaces.MouseEventInterface;
 import ru.samwanderman.wheel.view.DisplayContainerInterface;
 import ru.samwanderman.wheel.view.DisplayObject;
 
@@ -14,14 +14,14 @@ import ru.samwanderman.wheel.view.DisplayObject;
  */
 public final class MouseEventListener implements Listener<MouseEvent> {
 	// Target
-	private final MouseEventInterface target;
+	private final IMouseEvent target;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param target
 	 */
-	public MouseEventListener(final MouseEventInterface target) {
+	public MouseEventListener(final IMouseEvent target) {
 		this.target = target;
 	}
 	
@@ -62,6 +62,6 @@ public final class MouseEventListener implements Listener<MouseEvent> {
 
 	@Override
 	public final boolean checkTarget(final DisplayObject target) {
-		return this.target == (MouseEventInterface) target;
+		return this.target == (IMouseEvent) target;
 	}
 }

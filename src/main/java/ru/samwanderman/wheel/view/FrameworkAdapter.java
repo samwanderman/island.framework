@@ -11,15 +11,15 @@ import ru.samwanderman.wheel.core.Config;
 import ru.samwanderman.wheel.event.Events;
 import ru.samwanderman.wheel.event.event.GuiEvent;
 import ru.samwanderman.wheel.event.event.GuiRepaintEvent;
+import ru.samwanderman.wheel.event.event.IGuiRepaintEvent;
 import ru.samwanderman.wheel.event.event.SyncEvent;
-import ru.samwanderman.wheel.event.interfaces.GuiRepaintEventInterface;
 import ru.samwanderman.wheel.event.listener.GuiRepaintEventListener;
 import ru.samwanderman.wheel.log.Log;
 
 /**
  * Adapter to java view system
  */
-public class FrameworkAdapter extends Component implements Runnable, GuiRepaintEventInterface {
+public class FrameworkAdapter extends Component implements Runnable, IGuiRepaintEvent {
 	private static final long serialVersionUID = -2752101691826758979L;
 	
 	// Fake container for proper event dispatching

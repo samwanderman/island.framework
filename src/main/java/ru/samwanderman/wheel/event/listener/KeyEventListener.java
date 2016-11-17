@@ -3,8 +3,8 @@
  */
 package ru.samwanderman.wheel.event.listener;
 
+import ru.samwanderman.wheel.event.event.IKeyEvent;
 import ru.samwanderman.wheel.event.event.KeyEvent;
-import ru.samwanderman.wheel.event.interfaces.KeyEventInterface;
 import ru.samwanderman.wheel.view.DisplayObject;
 
 /**
@@ -12,9 +12,9 @@ import ru.samwanderman.wheel.view.DisplayObject;
  */
 public final class KeyEventListener implements Listener<KeyEvent> {
 	// target
-	private final KeyEventInterface target;
+	private final IKeyEvent target;
 	
-	public KeyEventListener(final KeyEventInterface target) {
+	public KeyEventListener(final IKeyEvent target) {
 		this.target = target;
 	}
 	
@@ -35,6 +35,6 @@ public final class KeyEventListener implements Listener<KeyEvent> {
 
 	@Override
 	public final boolean checkTarget(final DisplayObject target) {
-		return this.target == (KeyEventInterface) target;
+		return this.target == (IKeyEvent) target;
 	}
 }

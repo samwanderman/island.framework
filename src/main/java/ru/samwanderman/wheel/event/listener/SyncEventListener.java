@@ -3,8 +3,8 @@
  */
 package ru.samwanderman.wheel.event.listener;
 
+import ru.samwanderman.wheel.event.event.ISyncEvent;
 import ru.samwanderman.wheel.event.event.SyncEvent;
-import ru.samwanderman.wheel.event.interfaces.SyncEventInterface;
 import ru.samwanderman.wheel.view.DisplayObject;
 
 /**
@@ -12,14 +12,14 @@ import ru.samwanderman.wheel.view.DisplayObject;
  */
 public final class SyncEventListener implements Listener<SyncEvent> {
 	// event target
-	private final SyncEventInterface target;
+	private final ISyncEvent target;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param target
 	 */
-	public SyncEventListener(final SyncEventInterface target) {
+	public SyncEventListener(final ISyncEvent target) {
 		this.target = target;
 	}
 	
@@ -30,6 +30,6 @@ public final class SyncEventListener implements Listener<SyncEvent> {
 
 	@Override
 	public final boolean checkTarget(final DisplayObject target) {
-		return this.target == (SyncEventInterface) target;
+		return this.target == (ISyncEvent) target;
 	}
 }

@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ru.samwanderman.wheel.animation.Animation;
 import ru.samwanderman.wheel.log.Log;
 import ru.samwanderman.wheel.view.Graphics;
 import ru.samwanderman.wheel.view.Image;
@@ -119,7 +121,7 @@ public final class Resources {
 		graphics.drawImage(image, null, null);
 		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
 	}
-	
+
 	/**
 	 * Load animation
 	 * 
@@ -127,22 +129,21 @@ public final class Resources {
 	 * @return
 	 * @throws IOException
 	 */
-	public static final List<Image> loadAnimation(final String path) 
-			throws IOException {
-		final List<Image> images = new ArrayList<Image>();
-		final File directory = new File(CONST_RESOURCES + "/animations/" + path);
-		if (!directory.exists() || !directory.isDirectory()) {
-			return images;
+	public static final Animation loadAnimation(final String path) throws IOException {
+		final JsonNode json = loadJSON(CONST_RESOURCES + "/animations/" + path, true);
+		
+		final int speed = json.get("speed").asInt();
+		final List<Image> animations = new ArrayList<>();
+		final JsonNode images = json.get("data");
+		
+		final Iterator<JsonNode> iterator = images.elements();
+		while (iterator.hasNext()) {
+			final JsonNode node = iterator.next();
+			final Image image = loadImage(node.asText()); 
+			animations.add(image);
 		}
 		
-		final File[] files = directory.listFiles();
-		for (final File file: files) {
-			if (file.isFile()) {
-				images.add(loadImage(file));
-			}
-		}
-		
-		return images;
+		return new Animation(animations, speed);
 	}
 	
 	/**

@@ -1,14 +1,12 @@
 /**
  * @author Potapov Sergei (sam-wanderman@yandex.ru)
  */
-package ru.samwanderman.wheel.event.interfaces;
-
-import ru.samwanderman.wheel.event.event.MouseEvent;
+package ru.samwanderman.wheel.event.event;
 
 /**
  * Mouse event interface
  */
-public interface MouseEventInterface {
+public interface IMouseEvent {
 	// on mouse click
 	void mouseClick(final MouseEvent event);
 	// on mouse pressed

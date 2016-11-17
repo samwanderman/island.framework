@@ -3,11 +3,11 @@
  */
 package ru.samwanderman.wheel.view.ui;
 
+import ru.samwanderman.wheel.event.event.IKeyEvent;
+import ru.samwanderman.wheel.event.event.IMouseEvent;
+import ru.samwanderman.wheel.event.event.ISyncEvent;
 import ru.samwanderman.wheel.event.event.KeyEvent;
 import ru.samwanderman.wheel.event.event.MouseEvent;
-import ru.samwanderman.wheel.event.interfaces.KeyEventInterface;
-import ru.samwanderman.wheel.event.interfaces.MouseEventInterface;
-import ru.samwanderman.wheel.event.interfaces.SyncEventInterface;
 import ru.samwanderman.wheel.view.DisplayContainer;
 import ru.samwanderman.wheel.view.DisplayObject;
 import ru.samwanderman.wheel.view.Padding;
@@ -15,7 +15,7 @@ import ru.samwanderman.wheel.view.Padding;
 /**
  * Scrolling panel
  */
-public class ScrollPanel extends DisplayContainer implements MouseEventInterface, SyncEventInterface, KeyEventInterface {
+public class ScrollPanel extends DisplayContainer implements IMouseEvent, ISyncEvent, IKeyEvent {
 	private final int MOUSE_DETECT_X_OFFSET = 40;
 	private final int MOUSE_DETECT_Y_OFFSET = 40;
 	private final int MAP_SPEED = 4;

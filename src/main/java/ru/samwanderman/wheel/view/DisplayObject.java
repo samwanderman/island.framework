@@ -6,14 +6,14 @@ package ru.samwanderman.wheel.view;
 import ru.samwanderman.wheel.event.Events;
 import ru.samwanderman.wheel.event.event.GuiEvent;
 import ru.samwanderman.wheel.event.event.GuiRepaintEvent;
+import ru.samwanderman.wheel.event.event.IGuiEvent;
+import ru.samwanderman.wheel.event.event.IGuiRepaintEvent;
+import ru.samwanderman.wheel.event.event.IKeyEvent;
+import ru.samwanderman.wheel.event.event.IMouseEvent;
+import ru.samwanderman.wheel.event.event.ISyncEvent;
 import ru.samwanderman.wheel.event.event.KeyEvent;
 import ru.samwanderman.wheel.event.event.MouseEvent;
 import ru.samwanderman.wheel.event.event.SyncEvent;
-import ru.samwanderman.wheel.event.interfaces.GuiEventInterface;
-import ru.samwanderman.wheel.event.interfaces.GuiRepaintEventInterface;
-import ru.samwanderman.wheel.event.interfaces.KeyEventInterface;
-import ru.samwanderman.wheel.event.interfaces.MouseEventInterface;
-import ru.samwanderman.wheel.event.interfaces.SyncEventInterface;
 import ru.samwanderman.wheel.event.listener.GuiEventListener;
 import ru.samwanderman.wheel.event.listener.GuiRepaintEventListener;
 import ru.samwanderman.wheel.event.listener.KeyEventListener;
@@ -24,7 +24,7 @@ import ru.samwanderman.wheel.view.figure.Rectangle;
 /**
  * Main class to display object
  */
-public class DisplayObject implements GuiEventInterface {
+public class DisplayObject implements IGuiEvent {
 	// Element X
 	private int x = 0;
 	// Element Y
@@ -173,43 +173,43 @@ public class DisplayObject implements GuiEventInterface {
 		this.parent = parent;		
 		
 		if (parent != null) {
-			if (this instanceof GuiEventInterface) {
-				Events.addListener(GuiEvent.class, new GuiEventListener((GuiEventInterface) this));
+			if (this instanceof IGuiEvent) {
+				Events.addListener(GuiEvent.class, new GuiEventListener((IGuiEvent) this));
 			}
 			
-			if (this instanceof GuiRepaintEventInterface) {
-				Events.addListener(GuiRepaintEvent.class, new GuiRepaintEventListener((GuiRepaintEventInterface) this));
+			if (this instanceof IGuiRepaintEvent) {
+				Events.addListener(GuiRepaintEvent.class, new GuiRepaintEventListener((IGuiRepaintEvent) this));
 			}
 			
-			if (this instanceof KeyEventInterface) {
-				Events.addListener(KeyEvent.class, new KeyEventListener((KeyEventInterface) this));
+			if (this instanceof IKeyEvent) {
+				Events.addListener(KeyEvent.class, new KeyEventListener((IKeyEvent) this));
 			}
 			
-			if (this instanceof MouseEventInterface) {
-				Events.addListener(MouseEvent.class, new MouseEventListener((MouseEventInterface) this));
+			if (this instanceof IMouseEvent) {
+				Events.addListener(MouseEvent.class, new MouseEventListener((IMouseEvent) this));
 			}
 			
-			if (this instanceof SyncEventInterface) {
-				Events.addListener(SyncEvent.class, new SyncEventListener((SyncEventInterface) this));
+			if (this instanceof ISyncEvent) {
+				Events.addListener(SyncEvent.class, new SyncEventListener((ISyncEvent) this));
 			}
 		} else {
-			if (this instanceof GuiEventInterface) {
+			if (this instanceof IGuiEvent) {
 				Events.removeListeners(GuiEvent.class, this);
 			}
 			
-			if (this instanceof GuiRepaintEventInterface) {
+			if (this instanceof IGuiRepaintEvent) {
 				Events.removeListeners(GuiRepaintEvent.class, this);
 			}
 			
-			if (this instanceof KeyEventInterface) {
+			if (this instanceof IKeyEvent) {
 				Events.removeListeners(KeyEvent.class, this);
 			}
 			
-			if (this instanceof MouseEventInterface) {
+			if (this instanceof IMouseEvent) {
 				Events.removeListeners(MouseEvent.class, this);
 			}
 			
-			if (this instanceof SyncEventInterface) {
+			if (this instanceof ISyncEvent) {
 				Events.removeListeners(SyncEvent.class, this);
 			}
 		}

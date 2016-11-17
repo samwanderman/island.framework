@@ -4,7 +4,7 @@
 package ru.samwanderman.wheel.event.listener;
 
 import ru.samwanderman.wheel.event.event.GuiRepaintEvent;
-import ru.samwanderman.wheel.event.interfaces.GuiRepaintEventInterface;
+import ru.samwanderman.wheel.event.event.IGuiRepaintEvent;
 import ru.samwanderman.wheel.view.DisplayObject;
 
 /**
@@ -12,14 +12,14 @@ import ru.samwanderman.wheel.view.DisplayObject;
  */
 public class GuiRepaintEventListener implements Listener<GuiRepaintEvent> {
 	// target
-	private final GuiRepaintEventInterface target;
+	private final IGuiRepaintEvent target;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param target
 	 */
-	public GuiRepaintEventListener(final GuiRepaintEventInterface target) {
+	public GuiRepaintEventListener(final IGuiRepaintEvent target) {
 		this.target = target;
 	}
 	
@@ -30,6 +30,6 @@ public class GuiRepaintEventListener implements Listener<GuiRepaintEvent> {
 
 	@Override
 	public final boolean checkTarget(final DisplayObject target) {
-		return this.target == (GuiRepaintEventInterface) target;
+		return this.target == (IGuiRepaintEvent) target;
 	}
 }
