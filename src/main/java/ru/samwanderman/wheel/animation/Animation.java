@@ -52,7 +52,6 @@ public class Animation implements IAnimation {
 		
 		if (step >= speed) {
 			step = 0;
-			stop();
 		}
 
 		step += Config.GLOBAL_TIMER_STEP;
