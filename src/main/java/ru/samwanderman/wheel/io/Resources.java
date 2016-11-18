@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -25,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ru.samwanderman.wheel.animation.Animation;
 import ru.samwanderman.wheel.log.Log;
+import ru.samwanderman.wheel.sound.Sound;
 import ru.samwanderman.wheel.view.Graphics;
 import ru.samwanderman.wheel.view.Image;
 
@@ -48,6 +52,14 @@ public final class Resources {
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 	}
+	
+	
+	
+	
+	
+	/**
+	 * STRINGS SUBSYSTEM
+	 */
 	
 	/**
 	 * Init module
@@ -87,64 +99,13 @@ public final class Resources {
 		return strings.getProperty(key);
 	}
 
-	private static final Image loadImage(final File file) 
-			throws IOException {
-		return new Image(ImageIO.read(file));
-	}
 	
-	/**
-	 * Load image from default storage
-	 * 
-	 * @param path
-	 * @return
-	 * @throws IOException
-	 */
-	public static final Image loadImage(final String path) 
-			throws IOException {
-		return loadImage(new File(CONST_RESOURCES + "/images/" + path));
-	}
 	
-	/**
-	 * Save image to default storage
-	 * 
-	 * @param path
-	 * @param image
-	 * @throws IOException
-	 */
-	public static final void saveImage(final String path, final Image image) 
-			throws IOException {
-		final BufferedImage buffImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		final Graphics graphics = new Graphics(buffImage.createGraphics());
-		graphics.setComposite(Graphics.COMPOSITE_ALPHA);
-		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-		graphics.setComposite(Graphics.COMPOSITE_SRC);
-		graphics.drawImage(image, null, null);
-		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
-	}
+	
 
 	/**
-	 * Load animation
-	 * 
-	 * @param path
-	 * @return
-	 * @throws IOException
+	 * OBJECTS SUBSYSTEM
 	 */
-	public static final Animation loadAnimation(final String path) throws IOException {
-		final JsonNode json = loadJSON(CONST_RESOURCES + "/animations/" + path, true);
-		
-		final int speed = json.get("speed").asInt();
-		final List<Image> animations = new ArrayList<>();
-		final JsonNode images = json.get("data");
-		
-		final Iterator<JsonNode> iterator = images.elements();
-		while (iterator.hasNext()) {
-			final JsonNode node = iterator.next();
-			final Image image = loadImage(node.asText()); 
-			animations.add(image);
-		}
-		
-		return new Animation(animations, speed);
-	}
 	
 	/**
 	 * Load any json object
@@ -203,6 +164,14 @@ public final class Resources {
 		return mapper.readValue(new File(absolutePath), objectClass);
 	}
 	
+	
+	
+	
+	
+	/**
+	 * JSON SUBSYSTEM
+	 */
+	
 	/**
 	 * Load raw json
 	 * 
@@ -218,5 +187,105 @@ public final class Resources {
 	public static JsonNode loadJSON(final String path, final boolean f) 
 			throws IOException {
 		return mapper.readTree(new File(path));
+	}
+	
+
+	
+	
+	
+	/**
+	 * IMAGES SUBSYSTEM 
+	 */
+
+	private static final Image loadImage(final File file) 
+			throws IOException {
+		return new Image(ImageIO.read(file));
+	}
+	
+	/**
+	 * Load image from default storage
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static final Image loadImage(final String path) 
+			throws IOException {
+		return loadImage(new File(CONST_RESOURCES + "/images/" + path));
+	}
+	
+	/**
+	 * Save image to default storage
+	 * 
+	 * @param path
+	 * @param image
+	 * @throws IOException
+	 */
+	public static final void saveImage(final String path, final Image image) 
+			throws IOException {
+		final BufferedImage buffImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		final Graphics graphics = new Graphics(buffImage.createGraphics());
+		graphics.setComposite(Graphics.COMPOSITE_ALPHA);
+		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+		graphics.setComposite(Graphics.COMPOSITE_SRC);
+		graphics.drawImage(image, null, null);
+		ImageIO.write((RenderedImage) buffImage, "png", new File(CONST_RESOURCES + "/images/" + path));
+	}
+	
+	
+	
+	
+
+	/**
+	 * ANIMATIONS SUBSYSTEM
+	 */
+
+	/**
+	 * Load animation
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static final Animation loadAnimation(final String path) throws IOException {
+		final JsonNode json = loadJSON(CONST_RESOURCES + "/animations/" + path, true);
+		
+		final int speed = json.get("speed").asInt();
+		final List<Image> animations = new ArrayList<>();
+		final JsonNode images = json.get("data");
+		
+		final Iterator<JsonNode> iterator = images.elements();
+		while (iterator.hasNext()) {
+			final JsonNode node = iterator.next();
+			final Image image = loadImage(node.asText()); 
+			animations.add(image);
+		}
+		
+		if (json.get("sound") == null) {
+			return new Animation(animations, speed);	
+		}
+		
+		final String sound = json.get("sound").asText();
+		return new Animation(animations, speed, loadSound(sound));
+	}
+	
+	
+	
+	
+	
+	/**
+	 * SOUND SUBSYSTEM 
+	 */
+	
+	public static Sound loadSound(final String path) 
+			throws IOException {
+		try {
+			final AudioInputStream ais = AudioSystem.getAudioInputStream(new File(CONST_RESOURCES + path));
+			final Clip clip = AudioSystem.getClip();
+			clip.open(ais);
+			return new Sound(clip);
+		} catch (final Exception e) {
+			throw new IOException(e.getLocalizedMessage());
+		}
 	}
 }

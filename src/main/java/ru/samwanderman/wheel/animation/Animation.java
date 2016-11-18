@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.samwanderman.wheel.core.Config;
+import ru.samwanderman.wheel.sound.Sound;
 import ru.samwanderman.wheel.view.Image;
 
 /**
@@ -14,12 +15,21 @@ import ru.samwanderman.wheel.view.Image;
 public class Animation implements IAnimation {
 	private boolean running = false;
 	private final List<Image> images;
+	private final Sound sound;
 	private final int speed;
 	private int step;
 	
 	public Animation(final List<Image> images, final int speed) {
 		this.images = (images == null ? new ArrayList<Image>() : images);
 		this.speed = speed;
+		sound = null;
+		step = 0;
+	}
+	
+	public Animation(final List<Image> images, final int speed, final Sound sound) {
+		this.images = (images == null ? new ArrayList<Image>() : images);
+		this.speed = speed;
+		this.sound = sound;
 		step = 0;
 	}
 	
@@ -31,17 +41,26 @@ public class Animation implements IAnimation {
 	@Override
 	public final void play() {
 		running = true;
+		if (sound != null) {
+			sound.play();
+		}
 	}
 	
 	@Override
 	public final void pause() {
 		running = false;
+		if (sound != null) {
+			sound.pause();
+		}
 	}
 	
 	@Override
 	public void stop() {
 		running = false;
 		step = 0;
+		if (sound != null) {
+			sound.stop();
+		}
 	}
 		
 	@Override
