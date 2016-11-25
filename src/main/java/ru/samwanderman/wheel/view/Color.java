@@ -6,6 +6,7 @@ package ru.samwanderman.wheel.view;
 public final class Color {
 	public static final Color GRAY = new Color(127, 127, 127);
 	public static final Color GREEN = new Color(0, 255, 0);
+	public static final Color RED = new Color(255, 0, 0);
 	
 	private int r;
 	private int g;
