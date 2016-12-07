@@ -8,5 +8,6 @@ import ru.samwanderman.wheel.view.Image;
  * Animation interface
  */
 public interface IAnimation extends IPlayable, ISyncEvent {
+	String getName();
 	Image getImage();
 }

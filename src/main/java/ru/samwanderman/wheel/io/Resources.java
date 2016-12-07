@@ -250,6 +250,7 @@ public final class Resources {
 	public static final Animation loadAnimation(final String path) throws IOException {
 		final JsonNode json = loadJSON(CONST_RESOURCES + "/animations/" + path, true);
 		
+		final String name = json.get("name").asText();
 		final int speed = json.get("speed").asInt();
 		final List<Image> animations = new ArrayList<>();
 		final JsonNode images = json.get("data");
@@ -262,11 +263,11 @@ public final class Resources {
 		}
 		
 		if (json.get("sound") == null) {
-			return new Animation(animations, speed);	
+			return new Animation(name, animations, speed);	
 		}
 		
 		final String sound = json.get("sound").asText();
-		return new Animation(animations, speed, loadSound(sound));
+		return new Animation(name, animations, speed, loadSound(sound));
 	}
 	
 	
