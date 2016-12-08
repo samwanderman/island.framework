@@ -8,6 +8,7 @@ import java.io.IOException;
 import ru.samwanderman.wheel.io.ImageCache;
 import ru.samwanderman.wheel.io.Resources;
 import ru.samwanderman.wheel.log.Log;
+import ru.samwanderman.wheel.view.DisplayContainer;
 import ru.samwanderman.wheel.view.DisplayObject;
 import ru.samwanderman.wheel.view.Graphics;
 import ru.samwanderman.wheel.view.Image;
@@ -39,7 +40,7 @@ public class GuiImage extends DisplayObject {
 	}
 	
 	@Override
-	public void setParent(final DisplayObject parent) {
+	public void setParent(final DisplayContainer parent) {
 		super.setParent(parent);
 	}
 

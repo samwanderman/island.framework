@@ -36,7 +36,7 @@ public class DisplayObject implements IGuiEvent {
 	// Element width
 	private int width = 0;
 	// Parent
-	private DisplayObject parent = null;
+	private DisplayContainer parent = null;
 
 	/**
 	 * Constructor
@@ -160,7 +160,7 @@ public class DisplayObject implements IGuiEvent {
 	 * 
 	 * @return
 	 */
-	public final DisplayObject getParent() {
+	public final DisplayContainer getParent() {
 		return parent;
 	}
 	
@@ -169,7 +169,7 @@ public class DisplayObject implements IGuiEvent {
 	 * 
 	 * @param parent
 	 */
-	protected void setParent(final DisplayObject parent) {
+	protected void setParent(final DisplayContainer parent) {
 		this.parent = parent;		
 		
 		if (parent != null) {
@@ -213,6 +213,10 @@ public class DisplayObject implements IGuiEvent {
 				Events.removeListeners(SyncEvent.class, this);
 			}
 		}
+	}
+	
+	protected final void remove() {
+		getParent().removeChild(this);
 	}
 	
 	/**

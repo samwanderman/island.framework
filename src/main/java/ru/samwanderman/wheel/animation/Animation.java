@@ -6,6 +6,8 @@ import java.util.List;
 import ru.samwanderman.wheel.core.Config;
 import ru.samwanderman.wheel.event.Events;
 import ru.samwanderman.wheel.event.event.GuiRepaintEvent;
+import ru.samwanderman.wheel.event.listener.ObjectListener;
+import ru.samwanderman.wheel.log.Log;
 import ru.samwanderman.wheel.sound.Sound;
 import ru.samwanderman.wheel.view.Image;
 
@@ -15,6 +17,7 @@ import ru.samwanderman.wheel.view.Image;
  * Simple animation without state controls
  */
 public class Animation implements IAnimation {
+	private ObjectListener<Object> onSuccess;
 	private final String name;
 	private boolean running = false;
 	private final List<Image> images;
@@ -52,6 +55,12 @@ public class Animation implements IAnimation {
 	}
 	
 	@Override
+	public final void play(final ObjectListener<Object> callback) {
+		onSuccess = callback;
+		play();
+	}
+	
+	@Override
 	public final void pause() {
 		running = false;
 		if (sound != null) {
@@ -66,6 +75,10 @@ public class Animation implements IAnimation {
 		if (sound != null) {
 			sound.stop();
 		}
+		
+		if (onSuccess != null) {
+			onSuccess.on(null);
+		}
 	}
 		
 	@Override
@@ -75,8 +88,12 @@ public class Animation implements IAnimation {
 		}
 		
 		if (step >= speed) {
-			stop();
-			play();
+			if (onSuccess != null) {
+				onSuccess.on(null);
+			} else {
+				stop();
+				play();
+			}
 		}
 		
 		Events.dispatch(new GuiRepaintEvent());

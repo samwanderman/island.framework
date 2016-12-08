@@ -50,7 +50,7 @@ public class DisplayContainer extends DisplayObject implements DisplayContainerI
 	 * @param child
 	 * @return
 	 */
-	protected final boolean removeChild(final DisplayObject child) {
+	public boolean removeChild(final DisplayObject child) {
 		if (!children.contains(child)) {
 			return false;
 		}
