@@ -7,7 +7,6 @@ import ru.samwanderman.wheel.core.Config;
 import ru.samwanderman.wheel.event.Events;
 import ru.samwanderman.wheel.event.event.GuiRepaintEvent;
 import ru.samwanderman.wheel.event.listener.ObjectListener;
-import ru.samwanderman.wheel.log.Log;
 import ru.samwanderman.wheel.sound.Sound;
 import ru.samwanderman.wheel.view.Image;
 

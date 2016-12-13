@@ -14,11 +14,6 @@ import ru.samwanderman.wheel.view.Graphics;
 public final class Sprite extends DisplayObject {
 	// Element color - FIXME
 	private Color color = Config.DEFAULT_BACKGROUND_COLOR;
-	private float opacity = 1.0f;
-	
-	public final void setOpacity(final float opacity) {
-		this.opacity = opacity;
-	}
 	
 	/**
 	 * Set element color
