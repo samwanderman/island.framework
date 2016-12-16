@@ -21,7 +21,7 @@ import ru.samwanderman.wheel.log.Log;
  */
 public class FrameworkAdapter extends Component implements Runnable, IGuiRepaintEvent {
 	private static final long serialVersionUID = -2752101691826758979L;
-	
+
 	// Fake container for proper event dispatching
 	private final DisplayContainer fakeContainer;
 	// Current game board
@@ -29,10 +29,10 @@ public class FrameworkAdapter extends Component implements Runnable, IGuiRepaint
 	// Animation thread
 	private final Thread animator = new Thread(this);
 	// sync thread
-	private final Thread syncer = new Thread(new SyncThread());
+	//private final Thread syncer = new Thread(new SyncThread());
 	// Gui repaint event listener
 	private final GuiRepaintEventListener guiRepaintEventListener = new GuiRepaintEventListener(this);
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -47,54 +47,60 @@ public class FrameworkAdapter extends Component implements Runnable, IGuiRepaint
 		fakeContainer.addChild(board);
 		Events.addListener(GuiRepaintEvent.class, guiRepaintEventListener);
 	}
-	
+
 	@Override
 	public final void addNotify() {
 		super.addNotify();
-    	animator.start();
-    	syncer.start();
+		animator.start();
+		//syncer.start();
 	}
-	
+
 	@Override
 	public final void paint(final java.awt.Graphics graphics) {
 		super.paint(graphics);
 		final GuiEvent event = new GuiEvent(board, new Graphics(graphics));
 		Events.dispatch(event);
 	}
-	
+
 	@Override
-    public final void run() {
+	public final void run() {
 		long beforeTime = System.currentTimeMillis(), timeDiff, sleep;
-		
+
 		while (true) {
+			Events.dispatch(new SyncEvent());
 			repaint();
-			
-			timeDiff = System.currentTimeMillis() - beforeTime;
+
+			try {
+				Thread.sleep(Config.GLOBAL_TIMER_STEP);
+			} catch (InterruptedException e) {
+				Log.error("Sync event dispatch error");
+			}
+			/*timeDiff = System.currentTimeMillis() - beforeTime;
 			sleep = Config.DEFAULT_ANIMATION_THREAD_DELAY - timeDiff;
 			if (sleep < 0) {
 				sleep = 2;
 			}
-			
+
 			try {
 				Thread.sleep(sleep);
 			} catch (InterruptedException e) {
 				Log.error("Thread.sleep() error");
 			}
-			
-			beforeTime = System.currentTimeMillis();
+
+			beforeTime = System.currentTimeMillis();*/
 		}
 	}
-	
+
 	@Override
 	public final void onRepaint() {
 		this.repaint();
 	}
-	
+
 	/**
 	 * Sync Thread
 	 * 
 	 */
-	private static final class SyncThread implements Runnable {
+	/*private static final class SyncThread implements Runnable {
 		@Override
 		public final void run() {
 			while (true) {
@@ -106,5 +112,5 @@ public class FrameworkAdapter extends Component implements Runnable, IGuiRepaint
 				}
 			}
 		}
-	}
+	}*/
 }
